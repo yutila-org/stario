@@ -1,68 +1,57 @@
-# Stario
+<h1 align="center">Stario</h1>
 
-<img src="docs/representative.png" alt="Stario representative">
+<div align="center">
+  <img src="docs/representative.png" alt="Stario representative">
+</div>
 
-[![Build](https://img.shields.io/github/actions/workflow/status/albu-razvan/Stario/build.yml?label=Build)](https://github.com/albu-razvan/Stario/actions/workflows/build.yml)
-[<img src="https://shields.rbtlog.dev/simple/com.stario.launcher" alt="RB shield">](https://shields.rbtlog.dev/com.stario.launcher)
-[![Latest release](https://img.shields.io/github/downloads/albu-razvan/Stario/total?label=Download&logo=android&logoColor=white)](https://github.com/albu-razvan/Stario/releases/latest)
-[![Discord](https://img.shields.io/discord/1110537583726964820?label=Discord&logo=discord&logoColor=white)](https://discord.gg/WuVapMt9gY)
+<p align="center">
+  <a href="https://github.com/yutila-org/stario/actions/workflows/build.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/stario/build.yml?label=Build" alt="Build"></a>
+  <a href="https://github.com/yutila-org/stario/actions/workflows/trivy.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/stario/trivy.yml?label=Trivy" alt="Trivy"></a>
+  <a href="https://github.com/yutila-org/stario/actions/workflows/gitleaks.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/stario/gitleaks.yml?label=Secret%20Scan" alt="Secret Scan"></a>
+  <a href="https://github.com/yutila-org/stario/actions/workflows/sbom.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/stario/sbom.yml?label=SBOM" alt="SBOM"></a>
+</p>
 
-## Deprecation Notice
-
-> [!WARNING]
-> Stario began as a personal project inspired by Android’s flexibility and openness.
->
-> Unfortunately, the Android ecosystem has changed significantly in recent years. New platform restrictions, OEM limitations, tighter system integrations, and evolving Play ecosystem policies have made it increasingly difficult for independent developers to provide fully integrated experience across devices.
->
-> The September 2026 changes (read more at [Keep Android Open](https://keepandroidopen.org/)) are, to me, a clear signal of the direction Android is heading. While these changes may not impact Stario directly, they’ve collectively removed much of the motivation I had to continue pushing the project forward.
->
-> The project will remain open source for anyone interested in continuing development, or preserving the spirit of Android customization that inspired projects like this one in the first place.
->
-> Thank you to everyone who contributed, tested builds, submitted issues, translated the app, or used Stario over the years.
+<p align="center">
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white" alt="Android">
+  <img src="https://img.shields.io/badge/Kotlin-0095D5?style=flat&logo=kotlin&logoColor=white" alt="Kotlin">
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white" alt="Java">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker">
+</p>
 
 ## Overview
 
-Inspired by the minimalist phone concept, Stario aims to keep functionality and productivity at
-their peak in a simple and elegant format.
-
-This repository contains the complete codebase for Stario, a full rewrite of the previous
-Stario Launcher. This version offers significant improvements in both performance and usability.
-
-> **Note:** This repository replaces all previous Play Store versions of the app. If you’d like to 
-> use an older release, you can download it from the [archive ↗](./archive/Stario-v1.41.apk). Please 
-> note that **Stario v1.X is no longer supported**, and no further updates or maintenance will be 
-> provided.
+Stario is a minimalist Android launcher designed to organize applications efficiently without distractions. This codebase is an active fork maintained by [Yutila](https://github.com/yutila-org) for internal infrastructure alignment and continued development.
 
 ## Features
 
-- **Material You Support**  
+- <img src="https://api.iconify.design/material-symbols/palette-outline.svg?color=%23E91E63" width="18" height="18"> **Material You Support**  
   Integrates seamlessly with Android’s Material You dynamic theming system, adapting colors based on
   your wallpaper and device settings.
 
-- **Application Customization**  
+- <img src="https://api.iconify.design/material-symbols/settings-outline.svg?color=%23607D8B" width="18" height="18"> **Application Customization**  
   Customize your home screen with various icon packs and shapes to personalize your experience.
 
-- **Built-In Weather Widget**  
+- <img src="https://api.iconify.design/material-symbols/partly-cloudy-day-outline.svg?color=%230288D1" width="18" height="18"> **Built-In Weather Widget**  
   Check current weather conditions and forecasts right from your home screen.
 
-- **Global Search Integration**  
+- <img src="https://api.iconify.design/material-symbols/search.svg?color=%2343A047" width="18" height="18"> **Global Search Integration**  
   Perform fast, privacy-respecting searches using Kagi directly from the launcher.
 
-- **Minimalistic Media Player Controls**  
+- <img src="https://api.iconify.design/material-symbols/play-circle-outline.svg?color=%23F44336" width="18" height="18"> **Minimalistic Media Player Controls**  
   Manage your media playback easily with integrated controls.
 
-- **Application Categories**  
+- <img src="https://api.iconify.design/material-symbols/folder-outline.svg?color=%23FBC02D" width="18" height="18"> **Application Categories**  
   Organize your app drawer with customizable categories for better app management.
 
-- **RSS/Atom Reader**  
+- <img src="https://api.iconify.design/material-symbols/rss-feed.svg?color=%23EF6C00" width="18" height="18"> **RSS/Atom Reader**  
   Stay up-to-date with news and blog feeds via the integrated RSS/Atom reader.
 
-- **Page Sorting**  
+- <img src="https://api.iconify.design/material-symbols/sort.svg?color=%237E57C2" width="18" height="18"> **Page Sorting**  
   Easily reorder your home screen pages to suit your workflow.
 
 ## Download
 
-- Get the latest release of Stario from the [GitHub Releases page](https://github.com/albu-razvan/Stario/releases/latest).
+- Get the latest release of Stario from the [GitHub Releases page](https://github.com/yutila-org/stario/releases/latest).
 - Find Stario at [IzzyOnDroid](https://apt.izzysoft.de/packages/com.stario.launcher).
 
 ## Compatibility
@@ -133,7 +122,6 @@ apksigcopier compare stario-from-source.apk stario-built-locally.apk
 
 > NOTE: `apksigcopier compare` requires [apksigner](https://developer.android.com/tools/apksigner).
 
-## Join the Community
+## Attribution
 
-Got questions or want to connect with other users and contributors? Join
-the [Stario Discord Server](https://discord.gg/WuVapMt9gY).
+Original work and Stario concept developed by [Răzvan Albu](https://github.com/albu-razvan).
