@@ -24,29 +24,29 @@ Stario is a minimalist Android launcher designed to organize applications effici
 
 ## Features
 
-- <img src="https://api.iconify.design/material-symbols/palette-outline.svg?color=%23E91E63" width="18" height="18"> **Material You Support**  
+- <img src="https://api.iconify.design/material-symbols/palette-outline.svg?color=%23E91E63" width="18" height="18" align="absmiddle"> **Material You Support**  
   Integrates seamlessly with Android’s Material You dynamic theming system, adapting colors based on
   your wallpaper and device settings.
 
-- <img src="https://api.iconify.design/material-symbols/settings-outline.svg?color=%23607D8B" width="18" height="18"> **Application Customization**  
+- <img src="https://api.iconify.design/material-symbols/settings-outline.svg?color=%23607D8B" width="18" height="18" align="absmiddle"> **Application Customization**  
   Customize your home screen with various icon packs and shapes to personalize your experience.
 
-- <img src="https://api.iconify.design/material-symbols/partly-cloudy-day-outline.svg?color=%230288D1" width="18" height="18"> **Built-In Weather Widget**  
+- <img src="https://api.iconify.design/material-symbols/partly-cloudy-day-outline.svg?color=%230288D1" width="18" height="18" align="absmiddle"> **Built-In Weather Widget**  
   Check current weather conditions and forecasts right from your home screen.
 
-- <img src="https://api.iconify.design/material-symbols/search.svg?color=%2343A047" width="18" height="18"> **Global Search Integration**  
+- <img src="https://api.iconify.design/material-symbols/search.svg?color=%2343A047" width="18" height="18" align="absmiddle"> **Global Search Integration**  
   Perform fast, privacy-respecting searches using Kagi directly from the launcher.
 
-- <img src="https://api.iconify.design/material-symbols/play-circle-outline.svg?color=%23F44336" width="18" height="18"> **Minimalistic Media Player Controls**  
+- <img src="https://api.iconify.design/material-symbols/play-circle-outline.svg?color=%23F44336" width="18" height="18" align="absmiddle"> **Minimalistic Media Player Controls**  
   Manage your media playback easily with integrated controls.
 
-- <img src="https://api.iconify.design/material-symbols/folder-outline.svg?color=%23FBC02D" width="18" height="18"> **Application Categories**  
+- <img src="https://api.iconify.design/material-symbols/folder-outline.svg?color=%23FBC02D" width="18" height="18" align="absmiddle"> **Application Categories**  
   Organize your app drawer with customizable categories for better app management.
 
-- <img src="https://api.iconify.design/material-symbols/rss-feed.svg?color=%23EF6C00" width="18" height="18"> **RSS/Atom Reader**  
+- <img src="https://api.iconify.design/material-symbols/rss-feed.svg?color=%23EF6C00" width="18" height="18" align="absmiddle"> **RSS/Atom Reader**  
   Stay up-to-date with news and blog feeds via the integrated RSS/Atom reader.
 
-- <img src="https://api.iconify.design/material-symbols/sort.svg?color=%237E57C2" width="18" height="18"> **Page Sorting**  
+- <img src="https://api.iconify.design/material-symbols/sort.svg?color=%237E57C2" width="18" height="18" align="absmiddle"> **Page Sorting**  
   Easily reorder your home screen pages to suit your workflow.
 
 ## Download
