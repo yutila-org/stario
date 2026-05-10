@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'com.autonomousapps.dependency-analysis'
     id 'dev.rikka.tools.refine' version '4.4.0'
     id 'org.jetbrains.kotlin.plugin.compose' version '2.2.21'
 }
@@ -181,6 +180,4 @@ dependencies {
 
     debugImplementation 'com.prof18.rssparser:rssparser-android-debug:6.1.1'
     implementation 'com.prof18.rssparser:rssparser:6.1.1'
-
-    annotationProcessor 'androidx.annotation:annotation:1.9.1'
 }
