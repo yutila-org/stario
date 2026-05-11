@@ -5,3 +5,5 @@ build/
 keystore/
 TODO.md
 local.properties
+.env
+.env.*

@@ -3,6 +3,17 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'dev.rikka.tools.refine' version '4.4.0'
     id 'org.jetbrains.kotlin.plugin.compose' version '2.2.21'
+    id 'com.github.spotbugs' version '6.1.12'
+}
+
+spotbugs {
+    ignoreFailures = true
+    effort = 'max'
+    reportLevel = 'low'
+}
+
+dependencies {
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0'
 }
 
 def hasSigningConfig = ['keystorePath', 'keystorePassword', 'keyAlias', 'keyPassword']

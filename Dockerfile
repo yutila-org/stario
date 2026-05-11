@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:bookworm-slim@sha256:5724d81e4ef4df1ab7042ae12310b528dba3cb5391f4200f7b07bc9a0e932b0a
 WORKDIR /usr/local
 
 # Install dependencies
@@ -8,7 +8,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openjdk-17-jdk \
     wget \
     unzip \
-    zip
+    zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Setup Android SDK environment variables
 ENV ANDROID_SDK_ROOT=/usr/local/android-sdk
@@ -25,10 +27,14 @@ RUN mkdir -p $ANDROID_SDK_ROOT/cmdline-tools && \
 RUN yes | sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --licenses && \
     sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "platform-tools"
 
+# Create non-root user
+RUN groupadd --gid 1000 builder && \
+    useradd --uid 1000 --gid builder --shell /bin/bash --create-home builder
+
 WORKDIR /usr/local/stario
 
 # Clone the repo
-COPY . .
+COPY --chown=builder:builder . .
 RUN git fetch --all
 
 # Setup local.properties file pointing to Android SDK
@@ -37,5 +43,8 @@ RUN echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 # Make build scripts executable
 RUN chmod +x ./build.sh && \
     chmod +x ./gradlew
+
+# Switch to non-root user for runtime
+USER builder
 
 CMD ["/bin/bash"]
