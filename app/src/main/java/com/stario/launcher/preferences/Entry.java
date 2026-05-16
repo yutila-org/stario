@@ -34,6 +34,7 @@ public enum Entry {
     SEARCH("SEARCH"),
     STARIO("STARIO"),
     DRAWER("DRAWER"),
+    NOTES("NOTES"),
     SHEET("SHEET"),
     THEME("THEME"),
     ICONS("ICONS"),

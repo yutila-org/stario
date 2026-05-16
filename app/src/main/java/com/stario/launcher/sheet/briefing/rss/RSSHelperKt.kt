@@ -24,13 +24,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.future.future
 import java.util.concurrent.CompletableFuture
 
-class RSSHelperKt {
-    companion object {
-        @JvmStatic
-        @OptIn(DelicateCoroutinesApi::class)
-        fun parseFeed(parser: RssParser, url: String): CompletableFuture<RssChannel> =
-            GlobalScope.future {
-                parser.getRssChannel(url)
-            }
-    }
+object RSSHelperKt {
+    @JvmStatic
+    @OptIn(DelicateCoroutinesApi::class)
+    fun parseFeed(parser: RssParser, url: String): CompletableFuture<RssChannel> =
+        GlobalScope.future {
+            parser.getRssChannel(url)
+        }
 }

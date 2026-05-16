@@ -34,7 +34,7 @@ class SliderComposeView
 @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     AbstractComposeView(context, attrs) {
 
-    var progress = mutableFloatStateOf(0.5f)
+    var progress = mutableFloatStateOf(DEFAULT_PROGRESS)
     var isPlaying = mutableStateOf(false)
     var listener: OnProgressChanged? = null
 
@@ -47,7 +47,12 @@ class SliderComposeView
                 thumbColor = Color.White,
                 activeTickColor = Color.White,
                 activeTrackColor = Color.White,
-                inactiveTrackColor = Color(255, 255, 255, 120),
+                inactiveTrackColor = Color(
+                    INACTIVE_TRACK_RED,
+                    INACTIVE_TRACK_GREEN,
+                    INACTIVE_TRACK_BLUE,
+                    INACTIVE_TRACK_ALPHA
+                ),
             ),
             onValueChange = {
                 listener?.changing()
@@ -67,5 +72,13 @@ class SliderComposeView
     interface OnProgressChanged {
         fun changing()
         fun progressChanged(progress: Float)
+    }
+
+    companion object {
+        private const val DEFAULT_PROGRESS = 0.5f
+        private const val INACTIVE_TRACK_RED = 255
+        private const val INACTIVE_TRACK_GREEN = 255
+        private const val INACTIVE_TRACK_BLUE = 255
+        private const val INACTIVE_TRACK_ALPHA = 120
     }
 }
