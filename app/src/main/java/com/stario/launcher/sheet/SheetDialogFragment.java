@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.stario.launcher.sheet.behavior.SheetBehavior;
 import com.stario.launcher.sheet.briefing.dialog.BriefingDialog;
 import com.stario.launcher.sheet.drawer.dialog.ApplicationsDialog;
+import com.stario.launcher.sheet.notes.dialog.NotesDialog;
 import com.stario.launcher.sheet.widgets.dialog.WidgetsDialog;
 import com.stario.launcher.themes.ThemedActivity;
 import com.stario.launcher.ui.utils.HomeWatcher;
@@ -49,7 +50,7 @@ public abstract class SheetDialogFragment extends DialogFragment {
     private static final String TYPE_KEY = "DialogSheetType";
 
     public static final List<Class<? extends SheetDialogFragment>> IMPLEMENTATIONS =
-            List.of(ApplicationsDialog.class, WidgetsDialog.class, BriefingDialog.class);
+            List.of(ApplicationsDialog.class, WidgetsDialog.class, BriefingDialog.class, NotesDialog.class);
 
     private final ArrayList<OnDestroyListener> destroyListeners;
     private final ArrayList<OnShowListener> onShowListeners;

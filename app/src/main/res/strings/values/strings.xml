@@ -192,6 +192,10 @@
     <string name="no_connection">No internet connection</string>
     <string name="already_subscribed">You are already subscribed to this feed!</string>
 
+    <!-- Notes -->
+    <string name="notes">Notes</string>
+    <string name="notes_hint">Start typing…</string>
+
     <!-- Search -->
     <string name="search_on">Search on</string>
     <string name="searching">Searching…</string>
