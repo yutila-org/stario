@@ -163,3 +163,11 @@ apksigcopier compare stario-from-source.apk stario-built-locally.apk
 ## ![Icon](https://api.iconify.design/mdi/heart-outline.svg?color=%23E91E63&width=24&height=24) Attribution
 
 Original work and Stario concept developed by [Răzvan Albu](https://github.com/albu-razvan).
+
+### Support & Community
+
+- Contact: https://yutila.com/contact
+- Discord: https://discord.com/invite/ndZdYbzVGP
+- YouTube: https://www.youtube.com/@yutila_org
+- Bluesky: https://bsky.app/profile/yutila.com
+- FairPlay: https://fairplay.video/channel/yutila
