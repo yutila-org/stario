@@ -1,0 +1,88 @@
+name: Core Security Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  trivy:
+    name: SAST & File System Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Architecture
+        uses: actions/checkout@v4
+
+      - name: Execute Trivy Scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'json'
+          output: 'trivy-results.json'
+          exit-code: '1'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Normalize Payload
+        if: always()
+        run: jq -c '.Results[]? | .Vulnerabilities[]?' trivy-results.json > payload.ndjson || touch payload.ndjson
+
+      - name: Ingest Telemetry
+        if: always()
+        uses: yutila-org/WAZUH-TELEMETRY@main
+        with:
+          scan-file: 'payload.ndjson'
+          relay-token: ${{ secrets.WAZUH_RELAY_TOKEN }}
+
+  secret-scan:
+    name: Secret Entropy Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Architecture
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Execute Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_REPORT_FORMAT: json
+          GITLEAKS_REPORT_FILE: gitleaks-results.json
+
+      - name: Normalize Payload
+        if: always()
+        run: jq -c '.[]?' gitleaks-results.json > payload.ndjson || touch payload.ndjson
+
+      - name: Ingest Telemetry
+        if: always()
+        uses: yutila-org/WAZUH-TELEMETRY@main
+        with:
+          scan-file: 'payload.ndjson'
+          relay-token: ${{ secrets.WAZUH_RELAY_TOKEN }}
+
+  sbom:
+    name: Software Bill of Materials
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Architecture
+        uses: actions/checkout@v4
+
+      - name: Execute Syft
+        uses: anchore/sbom-action@v0
+        with:
+          format: 'spdx-json'
+          output-file: 'sbom-results.json'
+
+      - name: Normalize Payload
+        if: always()
+        run: jq -c '.packages[]?' sbom-results.json > payload.ndjson || touch payload.ndjson
+
+      - name: Ingest Telemetry
+        if: always()
+        uses: yutila-org/WAZUH-TELEMETRY@main
+        with:
+          scan-file: 'payload.ndjson'
+          relay-token: ${{ secrets.WAZUH_RELAY_TOKEN }}
