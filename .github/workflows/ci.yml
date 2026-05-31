@@ -33,6 +33,15 @@ jobs:
       - name: Gradle Build
         run: ./gradlew build
 
+      - name: Send Telemetry Payload
+        env:
+          RELAY_TOKEN: ${{ secrets.WAZUH_RELAY_TOKEN }}
+        run: |
+          curl -X POST "https://telemetry.yutila.com" \
+            -H "Authorization: Bearer $RELAY_TOKEN" \
+            -H "Content-Type: application/x-ndjson" \
+            -d '{"event": "ci_pipeline_success", "run_id": "${{ github.run_id }}", "repo": "${{ github.repository }}"}'
+
   trivy:
     name: SAST & File System Scan
     runs-on: ubuntu-latest
