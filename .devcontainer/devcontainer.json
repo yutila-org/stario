@@ -1,0 +1,29 @@
+{
+  "name": "Stario",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "workspaceFolder": "/workspaces/stario",
+  "remoteUser": "builder",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "naco-siren.gradle-language",
+        "redhat.vscode-xml",
+        "github.vscode-pull-request-github"
+      ],
+      "settings": {
+        "java.jdt.ls.java.home": "/usr/lib/jvm/java-17-openjdk-amd64",
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-17",
+            "path": "/usr/lib/jvm/java-17-openjdk-amd64",
+            "default": true
+          }
+        ]
+      }
+    }
+  },
+  "postCreateCommand": "echo 'sdk.dir=/usr/local/android-sdk' > local.properties && chmod +x ./gradlew && chmod +x ./build.sh"
+}
