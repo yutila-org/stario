@@ -111,6 +111,16 @@ docker run --platform linux/amd64 --rm -it \
 > [!TIP]
 > Use `--rm` to automatically remove the container after use.
 
+### Dev Container
+
+If you use VS Code, you can open the project in a dev container for a fully configured environment (JDK 17, Android SDK, extensions) with zero manual setup:
+
+1. Install the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension.
+2. Open the project folder in VS Code.
+3. Click **Reopen in Container** (or use the command palette: `Dev Containers: Reopen in Container`).
+
+The container will build automatically with all required tools and extensions pre-installed.
+
 ## ![Icon](https://api.iconify.design/material-symbols/build-outline.svg?color=%23EF6C00&width=24&height=24) Building
 
 Should you wish to build the application yourself, run the build

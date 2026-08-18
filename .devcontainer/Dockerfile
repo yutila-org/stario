@@ -32,20 +32,4 @@ RUN groupadd --gid 1000 builder && \
     useradd --uid 1000 --gid builder --shell /bin/bash --create-home builder && \
     chown -R builder:builder $ANDROID_SDK_ROOT
 
-WORKDIR /usr/local/stario
-
-# Clone the repo
-COPY --chown=builder:builder . .
-RUN git fetch --all
-
-# Setup local.properties file pointing to Android SDK
-RUN echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-
-# Make build scripts executable
-RUN chmod +x ./build.sh && \
-    chmod +x ./gradlew
-
-# Switch to non-root user for runtime
 USER builder
-
-CMD ["/bin/bash"]
