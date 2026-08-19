@@ -128,6 +128,7 @@
     <string name="category">Kategorija</string>
     <string name="category_name">Kategorijas nosaukums</string>
     <string name="available_icons">Pieejamās ikonas</string>
+    <string name="browse_all_icons">Pārlūkot visas ikonas</string>
     <string name="application_label">Nosaukums</string>
     <string name="category_name_warning">Šī kategorija jau eksistē.</string>
     <string name="application_label_warning">Nosaukumam jābūt vismaz vienu rakstzīmi garam.</string>

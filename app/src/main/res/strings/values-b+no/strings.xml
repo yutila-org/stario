@@ -128,6 +128,7 @@
     <string name="category">Kategori</string>
     <string name="category_name">Kategorinavn</string>
     <string name="available_icons">Tilgjengelige ikoner</string>
+    <string name="browse_all_icons">Bla gjennom alle ikoner</string>
     <string name="application_label">Etikett</string>
     <string name="category_name_warning">Denne kategorien eksisterer allerede.</string>
     <string name="application_label_warning">Etiketten må være minst ett tegn lang.</string>

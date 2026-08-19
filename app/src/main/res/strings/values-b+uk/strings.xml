@@ -146,6 +146,7 @@
     <string name="category">Категорія</string>
     <string name="category_name">Назва категорії</string>
     <string name="available_icons">Доступні значки</string>
+    <string name="browse_all_icons">Переглянути всі іконки</string>
     <string name="application_label">Мітка</string>
     <string name="category_name_warning">Така категорія вже існує.</string>
     <string name="application_label_warning">Мітка має містити щонайменше один символ.</string>

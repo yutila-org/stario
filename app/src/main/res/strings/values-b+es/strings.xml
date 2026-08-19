@@ -128,6 +128,7 @@
     <string name="category">Categoría</string>
     <string name="category_name">Nombre de categoría</string>
     <string name="available_icons">Iconos disponibles</string>
+    <string name="browse_all_icons">Explorar todos los iconos</string>
     <string name="application_label">Etiqueta</string>
     <string name="category_name_warning">Esta categoría ya existe.</string>
     <string name="application_label_warning">La etiqueta debe tener al menos un carácter.</string>

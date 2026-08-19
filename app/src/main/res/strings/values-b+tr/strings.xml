@@ -128,6 +128,7 @@
     <string name="category">Kategori</string>
     <string name="category_name">Kategori adı</string>
     <string name="available_icons">Kullanılabilir simgeler</string>
+    <string name="browse_all_icons">Tüm simgeleri görüntüle</string>
     <string name="application_label">Etiket</string>
     <string name="category_name_warning">Bu kategori zaten mevcut.</string>
     <string name="application_label_warning">Etiket en az bir karakter uzunluğunda olmalıdır.</string>

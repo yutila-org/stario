@@ -128,6 +128,7 @@
     <string name="category">Kategorie</string>
     <string name="category_name">Kategoriename</string>
     <string name="available_icons">Verfügbare Symbole</string>
+    <string name="browse_all_icons">Alle Symbole durchsuchen</string>
     <string name="application_label">Bezeichnung</string>
     <string name="category_name_warning">Diese Kategorie existiert bereits.</string>
     <string name="application_label_warning">Die Bezeichnung muss mindestens ein Zeichen lang sein.</string>

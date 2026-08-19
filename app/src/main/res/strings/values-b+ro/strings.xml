@@ -128,6 +128,7 @@
     <string name="category">Categorie</string>
     <string name="category_name">Nume categorie</string>
     <string name="available_icons">Pictograme disponibile</string>
+    <string name="browse_all_icons">Răsfoiește toate pictogramele</string>
     <string name="application_label">Etichetă</string>
     <string name="category_name_warning">Această categorie există deja.</string>
     <string name="application_label_warning">Eticheta trebuie să aibă cel puțin un caracter.</string>

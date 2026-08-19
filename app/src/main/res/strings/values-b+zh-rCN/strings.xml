@@ -128,6 +128,7 @@
     <string name="category">类别</string>
     <string name="category_name">类别名称</string>
     <string name="available_icons">可用图标</string>
+    <string name="browse_all_icons">浏览所有图标</string>
     <string name="application_label">标签</string>
     <string name="category_name_warning">此类别已存在。</string>
     <string name="application_label_warning">标签长度必须至少为一个字符。</string>

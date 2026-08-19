@@ -127,6 +127,7 @@
     <string name="category">Luokka</string>
     <string name="category_name">Luokan nimi</string>
     <string name="available_icons">Saatavilla olevat kuvakkeet</string>
+    <string name="browse_all_icons">Selaa kaikki kuvakkeet</string>
     <string name="application_label">Nimi</string>
     <string name="category_name_warning">Tämä luokka on jo olemassa.</string>
     <string name="application_label_warning">Nimen on oltava vähintään yhden merkin pituinen.</string>
