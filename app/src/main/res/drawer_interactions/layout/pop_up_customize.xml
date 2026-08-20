@@ -323,7 +323,7 @@
                     android:layout_height="20dp"
                     android:src="@drawable/ic_arrow_back"
                     android:rotation="180"
-                    android:tint="?attr/colorOnSurface" />
+                    app:tint="?attr/colorOnSurface" />
 
             </LinearLayout>
 
