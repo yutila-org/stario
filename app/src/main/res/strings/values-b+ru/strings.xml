@@ -132,6 +132,7 @@
     <string name="category">Категория</string>
     <string name="category_name">Название категории</string>
     <string name="available_icons">Доступные значки</string>
+    <string name="browse_all_icons">Просмотреть все значки</string>
     <string name="application_label">Метка</string>
     <string name="category_name_warning">Эта категория уже существует.</string>
     <string name="application_label_warning">Метка должна содержать хотя бы один символ.</string>

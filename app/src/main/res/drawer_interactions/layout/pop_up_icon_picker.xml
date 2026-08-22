@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2025 Răzvan Albu
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>
+  -->
+
+<com.stario.launcher.ui.common.FadingEdgeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:edge="top|bottom"
+    app:size_bottom="20dp"
+    app:size_top="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:translationY="10dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_icons" />
+
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/dm_sans_medium"
+                android:letterSpacing="-0.03"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@string/available_icons"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/label_background"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/dm_sans_regular"
+            android:hint="@string/search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textColorHint="?attr/colorOnSurface"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="?attr/colorOutline"
+            android:alpha="0.2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginTop="5dp">
+
+            <com.stario.launcher.ui.common.pager.CustomDurationViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never" />
+
+            <LinearLayout
+                android:id="@+id/tabs_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+
+                <com.stario.launcher.ui.common.FadingEdgeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/pop_up_hide_tabs_fader"
+                    android:paddingTop="100dp"
+                    android:paddingBottom="10dp"
+                    android:translationY="1px"
+                    app:edge="left|right"
+                    app:size_left="30dp"
+                    app:size_right="30dp">
+
+                    <com.stario.launcher.ui.common.tabs.CenterTabLayout
+                        android:id="@+id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="44sp"
+                        android:clipToPadding="false"
+                        app:stl_clickable="false"
+                        app:stl_defaultTabBackground="@android:color/transparent"
+                        app:stl_defaultTabTextAllCaps="false"
+                        app:stl_defaultTabTextHorizontalPadding="14dp"
+                        app:stl_defaultTabTextMinWidth="20dp"
+                        app:stl_defaultTabTextSize="17sp"
+                        app:stl_distributeEvenly="false"
+                        app:stl_dividerThickness="0dp"
+                        app:stl_drawDecorationAfterTab="false"
+                        app:stl_indicatorAlwaysInCenter="true"
+                        app:stl_indicatorColor="?attr/colorPrimaryContainer"
+                        app:stl_indicatorCornerRadius="24dp"
+                        app:stl_indicatorGravity="center"
+                        app:stl_indicatorInFront="false"
+                        app:stl_indicatorInterpolation="linear"
+                        app:stl_indicatorThickness="44sp"
+                        app:stl_indicatorWidth="auto"
+                        app:stl_indicatorWithoutPadding="false"
+                        app:stl_overlineThickness="0dp"
+                        app:stl_titleOffset="0dp"
+                        app:stl_underlineThickness="0dp" />
+
+                </com.stario.launcher.ui.common.FadingEdgeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</com.stario.launcher.ui.common.FadingEdgeLayout>

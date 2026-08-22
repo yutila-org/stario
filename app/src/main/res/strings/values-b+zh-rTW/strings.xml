@@ -128,6 +128,7 @@
     <string name="category">類別</string>
     <string name="category_name">類別名稱</string>
     <string name="available_icons">可用圖示</string>
+    <string name="browse_all_icons">瀏覽所有圖示</string>
     <string name="application_label">標籤</string>
     <string name="category_name_warning">此類別已存在。</string>
     <string name="application_label_warning">標籤長度至少需為一個字元。</string>

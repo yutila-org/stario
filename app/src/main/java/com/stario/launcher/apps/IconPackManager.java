@@ -49,12 +49,16 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.util.LruCache;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -352,9 +356,12 @@ public final class IconPackManager {
     @SuppressLint("DiscouragedApi")
     public class IconPack {
         private static final String TAG = "IconPackManager";
+        private static final int DRAWABLE_CACHE_SIZE = 100;
         private final LauncherApplication application;
         private final HashMap<String, List<String>> exactComponentDrawable;
         private final HashMap<String, List<String>> packageNameDrawables;
+        private final Set<String> allDrawableNames;
+        private final LruCache<String, Drawable> drawableCache;
         private final List<Runnable> completionListeners;
         private CompletableFuture<Boolean> loadTask;
         private Resources resources;
@@ -364,6 +371,8 @@ public final class IconPackManager {
             this.application = application;
             this.exactComponentDrawable = new HashMap<>();
             this.packageNameDrawables = new HashMap<>();
+            this.allDrawableNames = new LinkedHashSet<>();
+            this.drawableCache = new LruCache<>(DRAWABLE_CACHE_SIZE);
             this.completionListeners = Collections.synchronizedList(new ArrayList<>());
             this.loadTask = null;
             this.cached = false;
@@ -455,6 +464,8 @@ public final class IconPackManager {
                         }
                     }
 
+                    parseAllDrawables();
+
                     for (int index = 0; index < completionListeners.size(); index++) {
                         completionListeners.get(index).run();
                     }
@@ -521,14 +532,88 @@ public final class IconPackManager {
         }
 
         private Drawable getDrawable(String drawableName) {
+            Drawable cached = drawableCache.get(drawableName);
+            if (cached != null) {
+                return cached;
+            }
+
             int id = resources.getIdentifier(drawableName,
                     "drawable", application.info.packageName);
 
             if (id > 0) {
-                return ResourcesCompat.getDrawable(resources, id, null);
+                Drawable drawable = ResourcesCompat.getDrawable(resources, id, null);
+                if (drawable != null) {
+                    drawableCache.put(drawableName, drawable);
+                }
+                return drawable;
             } else {
                 return null;
             }
+        }
+
+        @SuppressLint("DiscouragedApi")
+        private void parseAllDrawables() {
+            try {
+                XmlPullParser parser = null;
+                int drawableXmlId = resources.getIdentifier("drawable", "xml",
+                        application.info.packageName);
+
+                if (drawableXmlId > 0) {
+                    parser = resources.getXml(drawableXmlId);
+                } else {
+                    try {
+                        InputStream drawableStream = resources.getAssets().open("drawable.xml");
+
+                        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                        factory.setNamespaceAware(true);
+
+                        parser = factory.newPullParser();
+                        parser.setInput(drawableStream, Xml.Encoding.UTF_8.toString());
+                    } catch (IOException exception) {
+                        Log.d(TAG, "No drawable.xml file");
+                    }
+                }
+
+                if (parser != null) {
+                    int eventType = parser.getEventType();
+
+                    while (eventType != XmlPullParser.END_DOCUMENT) {
+                        if (eventType == XmlPullParser.START_TAG && parser.getName().equals("item")) {
+                            String drawableName = parser.getAttributeValue(null, "drawable");
+
+                            if (drawableName != null) {
+                                allDrawableNames.add(drawableName);
+                            }
+                        }
+
+                        eventType = parser.next();
+                    }
+                }
+            } catch (XmlPullParserException | IOException exception) {
+                Log.d(TAG, "Cannot parse icon pack drawable.xml");
+            }
+
+            for (List<String> drawables : exactComponentDrawable.values()) {
+                allDrawableNames.addAll(drawables);
+            }
+        }
+
+        @NonNull
+        public CompletableFuture<List<String>> getAllDrawableNames() {
+            CompletableFuture<List<String>> future = new CompletableFuture<>();
+
+            load(() -> future.complete(new ArrayList<>(allDrawableNames)));
+
+            return future;
+        }
+
+        @NonNull
+        public CompletableFuture<Drawable> getDrawableByName(String drawableName) {
+            CompletableFuture<Drawable> future = new CompletableFuture<>();
+
+            load(() -> future.complete(getDrawable(drawableName)));
+
+            return future;
         }
 
         @NonNull
@@ -621,6 +706,8 @@ public final class IconPackManager {
 
         public void invalidate() {
             exactComponentDrawable.clear();
+            allDrawableNames.clear();
+            drawableCache.evictAll();
             cached = false;
 
             load(null);

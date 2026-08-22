@@ -128,6 +128,7 @@
     <string name="category">Categorie</string>
     <string name="category_name">Categorienaam</string>
     <string name="available_icons">Beschikbare pictogrammen</string>
+    <string name="browse_all_icons">Blader door alle pictogrammen</string>
     <string name="application_label">Label</string>
     <string name="category_name_warning">Deze categorie bestaat al.</string>
     <string name="application_label_warning">Het label moet minstens één teken lang zijn.</string>

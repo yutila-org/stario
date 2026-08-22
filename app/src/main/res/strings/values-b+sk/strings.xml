@@ -128,6 +128,7 @@
     <string name="category">Kategória</string>
     <string name="category_name">Názov kategórie</string>
     <string name="available_icons">Dostupné ikony</string>
+    <string name="browse_all_icons">Prezrieť všetky ikony</string>
     <string name="application_label">Popis</string>
     <string name="category_name_warning">Táto kategória už existuje.</string>
     <string name="application_label_warning">Popis musí mať aspoň jeden znak.</string>

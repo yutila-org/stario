@@ -176,6 +176,10 @@ public class ApplicationCustomizationDialog extends ActionDialog {
             label.setSelection(applicationLabel.length());
         });
 
+        root.findViewById(R.id.browse_all_icons).setOnClickListener(view -> {
+            new IconPickerDialog(activity, application, this::dismiss).show();
+        });
+
         return root;
     }
 

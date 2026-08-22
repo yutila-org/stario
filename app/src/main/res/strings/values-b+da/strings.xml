@@ -128,6 +128,7 @@
     <string name="category">Kategori</string>
     <string name="category_name">Kategorinavn</string>
     <string name="available_icons">Tilgængelige ikoner</string>
+    <string name="browse_all_icons">Gennemse alle ikoner</string>
     <string name="application_label">Navn</string>
     <string name="category_name_warning">Denne kategori findes allerede.</string>
     <string name="application_label_warning">Navnet skal være mindst ét tegn langt.</string>
