@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Răzvan Albu
+ * Copyright (C) 2026 Yutila
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -451,7 +451,7 @@ public class Settings extends ThemedActivity {
 
     private void initFooterLinks() {
         //noinspection SetTextI18n
-        ((TextView) findViewById(R.id.version)).setText(BuildConfig.VERSION_NAME + " • Răzvan Albu");
+        ((TextView) findViewById(R.id.version)).setText(BuildConfig.VERSION_NAME);
 
         findViewById(R.id.about).setOnClickListener(view -> {
             Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -478,9 +478,9 @@ public class Settings extends ThemedActivity {
             }
         });
 
-        setupUrlButton(R.id.github, "https://github.com/albu-razvan/Stario");
-        setupUrlButton(R.id.website, "https://www.razvanalbu.com");
-        setupUrlButton(R.id.discord, "https://discord.gg/WuVapMt9gY");
+        setupUrlButton(R.id.github, "https://github.com/yutila-org/stario");
+        setupUrlButton(R.id.website, "https://yutila.com/software/stario");
+        setupUrlButton(R.id.discord, "https://discord.gg/ndZdYbzVGP");
     }
 
     // Helpers

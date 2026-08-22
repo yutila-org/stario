@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 Răzvan Albu
+ * Copyright (C) 2026 Yutila
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
