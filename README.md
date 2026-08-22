@@ -5,18 +5,9 @@
 </div>
 
 <p align="center">
-  <a href="https://github.com/yutila-org/stario/actions/workflows/build.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/stario/build.yml?label=Build" alt="Build"></a>
-  <a href="https://github.com/yutila-org/stario/actions/workflows/detekt.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/stario/detekt.yml?label=Detekt" alt="Detekt"></a>
-  <a href="https://github.com/yutila-org/stario/actions/workflows/findsecbugs.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/stario/findsecbugs.yml?label=FindSecBugs" alt="FindSecBugs"></a>
-  <a href="https://github.com/yutila-org/stario/actions/workflows/trivy.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/stario/trivy.yml?label=Trivy" alt="Trivy"></a>
-  <a href="https://github.com/yutila-org/stario/actions/workflows/secret-scan.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/stario/secret-scan.yml?label=Secret%20Scan" alt="Secret Scan"></a>
-  <a href="https://github.com/yutila-org/stario/actions/workflows/sbom.yml"><img src="https://img.shields.io/github/actions/workflow/status/yutila-org/stario/sbom.yml?label=SBOM" alt="SBOM"></a>
-</p>
-
-<p align="center">
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white" alt="Java">
   <img src="https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white" alt="Android">
   <img src="https://img.shields.io/badge/Kotlin-0095D5?style=flat&logo=kotlin&logoColor=white" alt="Kotlin">
-  <img src="https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white" alt="Java">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker">
 </p>
 
@@ -24,9 +15,9 @@
   <b><a href="#-overview">Overview</a></b> •
   <b><a href="#-features">Features</a></b> •
   <b><a href="#-download">Download</a></b> •
+  <b><a href="#-installation">Installation</a></b> •
   <b><a href="#-compatibility">Compatibility</a></b> •
-  <b><a href="#-development">Development</a></b> •
-  <b><a href="#-building">Building</a></b>
+  <b><a href="CONTRIBUTING.md">Contributing</a></b>
 </div>
 
 <br>
@@ -78,7 +69,19 @@ Yutila guarantees that Stario will remain a freely accessible, independent binar
 3. Grant installation permissions to your designated file manager or browser.
 4. Execute the APK package to initiate installation.
 
-### CLI ~(Fallback)~
+### Obtainium (Direct Updates)
+
+To preserve privacy and receive direct updates without telemetry tracking, configure [Obtainium](https://github.com/ImranR98/Obtainium):
+
+1. Install [Obtainium](https://github.com/ImranR98/Obtainium) on your device.
+2. Select **Add App** within Obtainium.
+3. Enter the official repository link: `https://github.com/yutila-org/stario`
+4. Set execution parameters:
+   - **Filter APKs by name:** `stario.apk`
+   - **Install automatically:** Enabled
+5. Select **Add** to track releases and fetch updates directly.
+
+### CLI (Fallback)
 
 For OEM builds or future OS versions that aggressively block on-device unverified package parsing, utilize the Android Debug Bridge (`adb`):
 
@@ -96,79 +99,9 @@ adb install /path/to/stario-release.apk
 - Compatible with AOSP and most major OEM devices
 - Should work with custom ROMs, though these are not officially tested — user feedback is welcome
 
-## ![Icon](https://api.iconify.design/material-symbols/code.svg?color=%23607D8B&width=24&height=24) Development
+## ![Icon](https://api.iconify.design/material-symbols/handshake-outline.svg?color=%23009688&width=24&height=24) Contributing
 
-You can quickly set up the development environment using the provided Dockerfile:
-
-```bash
-docker build --platform linux/amd64 -t stario-dev .
-
-docker run --platform linux/amd64 --rm -it \
-  -v </path/to/output>:/usr/local/stario/build \
-  stario-dev
-```
-
-> [!TIP]
-> Use `--rm` to automatically remove the container after use.
-
-### Dev Container
-
-If you use VS Code, you can open the project in a dev container for a fully configured environment (JDK 17, Android SDK, extensions) with zero manual setup:
-
-1. Install the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension.
-2. Open the project folder in VS Code.
-3. Click **Reopen in Container** (or use the command palette: `Dev Containers: Reopen in Container`).
-
-The container will build automatically with all required tools and extensions pre-installed.
-
-## ![Icon](https://api.iconify.design/material-symbols/build-outline.svg?color=%23EF6C00&width=24&height=24) Building
-
-Should you wish to build the application yourself, run the build
-script from within the development environment:
-
-```bash
-# Optionally, checkout to the tagged commit
-git checkout v2.9
-
-./build.sh
-```
-
-Alternatively, to also build a signed copy (APK and AAB), pass a keystore to the build script:
-
-```bash
-docker run --platform linux/amd64 --rm -it \
-  -v </path/to/output>:/usr/local/stario/build \
-  -v </path/to/keystore>:/usr/local/stario/keystore \
-  stario-dev
-
-# Optionally, checkout to the tagged commit
-git checkout v2.9
-  
-./build.sh \
-  -K /usr/local/stario/keystore/keystore.jks \
-  -P keystore_password \
-  -a key_alias \
-  -p key_password
-```
-
-## ![Icon](https://api.iconify.design/material-symbols/verified-outline.svg?color=%23009688&width=24&height=24) Reproducible Builds
-
-Check for RBs with the locally built unsigned APK and [apksigcopier](https://github.com/obfusk/apksigcopier). 
-
-Firstly, copy the signature from the signed APK onto your built unsigned APK:
-
-```bash
-apksigcopier copy signed-from-source.apk unsigned-built-locally.apk out.apk
-```
-
-Then compare the two APKs:
-
-```bash
-apksigcopier compare stario-from-source.apk stario-built-locally.apk
-```
-
-> [!NOTE]
-> `apksigcopier compare` requires [apksigner](https://developer.android.com/tools/apksigner).
+For development environment setup, building instructions, and reproducible build verification, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## ![Icon](https://api.iconify.design/mdi/heart-outline.svg?color=%23E91E63&width=24&height=24) Attribution
 

@@ -1,4 +1,4 @@
-name: Build
+name: CI
 
 on:
   push:
@@ -33,14 +33,42 @@ jobs:
       - name: Gradle Build
         run: ./gradlew build
 
-      - name: Send Telemetry Payload
-        env:
-          RELAY_TOKEN: ${{ secrets.WAZUH_RELAY_TOKEN }}
+  detekt:
+    name: Detekt Static Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Setup Java
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Detekt CLI
         run: |
-          curl -X POST "https://telemetry.yutila.com" \
-            -H "Authorization: Bearer $RELAY_TOKEN" \
-            -H "Content-Type: application/x-ndjson" \
-            -d '{"event": "ci_pipeline_success", "run_id": "${{ github.run_id }}", "repo": "${{ github.repository }}"}'
+          DETEKT_VERSION="1.23.8"
+          curl -sSLO "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}.zip"
+          unzip "detekt-cli-${DETEKT_VERSION}.zip"
+          chmod +x "detekt-cli-${DETEKT_VERSION}/bin/detekt-cli"
+          echo "detekt-cli-${DETEKT_VERSION}/bin" >> "$GITHUB_PATH"
+
+      - name: Run Detekt
+        run: |
+          detekt-cli \
+            --input app/src,hidden/src \
+            --report txt:detekt-report.txt \
+            --report xml:detekt-report.xml
+
+      - name: Upload Detekt report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: detekt-report
+          path: |
+            detekt-report.txt
+            detekt-report.xml
 
   trivy:
     name: SAST & File System Scan
@@ -58,17 +86,6 @@ jobs:
           exit-code: '1'
           severity: 'CRITICAL,HIGH'
 
-      - name: Normalize Payload
-        if: always()
-        run: jq -c '.Results[]? | .Vulnerabilities[]?' trivy-results.json > payload.ndjson || touch payload.ndjson
-
-      - name: Ingest Telemetry
-        if: always()
-        uses: yutila-org/WAZUH-TELEMETRY@main
-        with:
-          scan-file: 'payload.ndjson'
-          relay-token: ${{ secrets.WAZUH_RELAY_TOKEN }}
-
   secret-scan:
     name: Secret Entropy Detection
     runs-on: ubuntu-latest
@@ -85,17 +102,6 @@ jobs:
           GITLEAKS_REPORT_FORMAT: json
           GITLEAKS_REPORT_FILE: gitleaks-results.json
 
-      - name: Normalize Payload
-        if: always()
-        run: jq -c '.[]?' gitleaks-results.json > payload.ndjson || touch payload.ndjson
-
-      - name: Ingest Telemetry
-        if: always()
-        uses: yutila-org/WAZUH-TELEMETRY@main
-        with:
-          scan-file: 'payload.ndjson'
-          relay-token: ${{ secrets.WAZUH_RELAY_TOKEN }}
-
   sbom:
     name: Software Bill of Materials
     runs-on: ubuntu-latest
@@ -108,14 +114,3 @@ jobs:
         with:
           format: 'spdx-json'
           output-file: 'sbom-results.json'
-
-      - name: Normalize Payload
-        if: always()
-        run: jq -c '.packages[]?' sbom-results.json > payload.ndjson || touch payload.ndjson
-
-      - name: Ingest Telemetry
-        if: always()
-        uses: yutila-org/WAZUH-TELEMETRY@main
-        with:
-          scan-file: 'payload.ndjson'
-          relay-token: ${{ secrets.WAZUH_RELAY_TOKEN }}
