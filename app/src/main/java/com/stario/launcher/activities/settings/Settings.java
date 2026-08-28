@@ -58,6 +58,7 @@ import com.stario.launcher.activities.settings.dialogs.HomeScreenDialog;
 import com.stario.launcher.activities.settings.dialogs.hide.HideApplicationsDialog;
 import com.stario.launcher.activities.settings.dialogs.icons.IconsDialog;
 import com.stario.launcher.activities.settings.dialogs.license.LicensesDialog;
+import com.stario.launcher.activities.settings.dialogs.notifications.NotificationDotsDialog;
 import com.stario.launcher.activities.settings.dialogs.search.engine.SearchEngineDialog;
 import com.stario.launcher.activities.settings.dialogs.search.results.SearchResultsDialog;
 import com.stario.launcher.activities.settings.dialogs.theme.ThemeDialog;
@@ -66,6 +67,7 @@ import com.stario.launcher.apps.LauncherApplication;
 import com.stario.launcher.apps.ProfileApplicationManager;
 import com.stario.launcher.apps.ProfileManager;
 import com.stario.launcher.preferences.Entry;
+import com.stario.launcher.preferences.NotificationDots;
 import com.stario.launcher.preferences.Vibrations;
 import com.stario.launcher.sheet.drawer.search.SearchEngine;
 import com.stario.launcher.sheet.drawer.search.SearchFragment;
@@ -76,6 +78,8 @@ import com.stario.launcher.ui.dialogs.DialogBackgroundDimmingController;
 import com.stario.launcher.ui.utils.LayoutSizeObserver;
 import com.stario.launcher.ui.utils.UiUtils;
 
+import java.util.Locale;
+
 public class Settings extends ThemedActivity {
 
     // Data
@@ -83,6 +87,7 @@ public class Settings extends ThemedActivity {
     private SharedPreferences searchPrefs;
     private SharedPreferences iconsPrefs;
     private SharedPreferences themePrefs;
+    private SharedPreferences notificationDotsPrefs;
     private PowerManager powerManager;
     private boolean isBatterySaverOn;
     private Resources resources;
@@ -101,6 +106,7 @@ public class Settings extends ThemedActivity {
     private View lowSpecContainer;
     private TextView iconPackName;
     private TextView hideCount;
+    private TextView notificationDotsStatus;
 
     // Misc
     private ActivityResultLauncher<Intent> homeRoleLauncher;
@@ -163,6 +169,7 @@ public class Settings extends ThemedActivity {
 
         settingsPrefs = stario.getSettings();
         iconsPrefs = stario.getSharedPreferences(Entry.ICONS);
+        notificationDotsPrefs = stario.getSharedPreferences(Entry.NOTIFICATION_DOTS);
         searchPrefs = stario.getSharedPreferences(Entry.SEARCH);
         themePrefs = stario.getSharedPreferences(Entry.THEME);
 
@@ -182,6 +189,7 @@ public class Settings extends ThemedActivity {
         scroller = findViewById(R.id.scroller);
         iconPackName = findViewById(R.id.pack_name);
         hideCount = findViewById(R.id.hidden_count);
+        notificationDotsStatus = findViewById(R.id.notification_dots_status);
         lowSpecSwitch = findViewById(R.id.low_spec);
         searchEngineName = findViewById(R.id.engine_name);
         titleLandscape = findViewById(R.id.title_landscape);
@@ -342,6 +350,30 @@ public class Settings extends ThemedActivity {
 
                     dialog.setOnDismissListener(dialog -> {
                         updateIconPackName();
+                        showing = false;
+                    });
+                }
+
+                if (!showing) {
+                    dialog.show();
+                    showing = true;
+                }
+            }
+        });
+
+        // Notification Dots
+        updateNotificationDotsStatus();
+        findViewById(R.id.notification_dots).setOnClickListener(new View.OnClickListener() {
+            private NotificationDotsDialog dialog;
+            private boolean showing = false;
+
+            @Override
+            public void onClick(View view) {
+                if (dialog == null) {
+                    dialog = new NotificationDotsDialog(Settings.this);
+
+                    dialog.setOnDismissListener(dialog -> {
+                        updateNotificationDotsStatus();
                         showing = false;
                     });
                 }
@@ -569,6 +601,17 @@ public class Settings extends ThemedActivity {
         }
 
         hideCount.setText(resources.getString(R.string.hidden_apps) + ": " + count);
+    }
+
+    private void updateNotificationDotsStatus() {
+        boolean enabled = notificationDotsPrefs.getBoolean(NotificationDots.NOTIFICATION_DOTS_ENABLED, true);
+        if (enabled) {
+            int color = notificationDotsPrefs.getInt(NotificationDots.NOTIFICATION_DOTS_COLOR,
+                    NotificationDots.DEFAULT_COLOR);
+            notificationDotsStatus.setText(String.format(Locale.ROOT, "#%06X", 0xFFFFFF & color));
+        } else {
+            notificationDotsStatus.setText(R.string.display_notification_counter);
+        }
     }
 
     // Utils

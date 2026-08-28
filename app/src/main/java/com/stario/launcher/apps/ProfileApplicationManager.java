@@ -292,6 +292,17 @@ public final class ProfileApplicationManager {
         application.category = CategoryManager.getInstance()
                 .getCategoryIdentifier(applicationInfo, handle);
 
+        com.stario.launcher.services.NotificationService notificationService =
+                com.stario.launcher.services.NotificationService.getInstance();
+        if (notificationService != null) {
+            try {
+                java.util.HashMap<String, Integer> map =
+                        com.stario.launcher.services.NotificationService.convertToNotificationMap(
+                                notificationService.getActiveNotifications());
+                application.setNotificationCount(map.getOrDefault(applicationInfo.packageName, 0));
+            } catch (Exception ignored) {}
+        }
+
         return application;
     }
 

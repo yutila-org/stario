@@ -66,17 +66,27 @@ public class NotificationService extends NotificationListenerService {
         instance = this;
 
         try {
-            Intent intent = new Intent();
-            intent.setAction(NOTIFICATIONS_EVENT);
+            Intent intent = new Intent(NOTIFICATIONS_EVENT);
+            intent.setPackage(getPackageName());
 
             intent.putExtra(TARGET_NOTIFICATION,
                     convertToNotificationMap(getActiveNotifications()));
             sendBroadcast(intent);
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this)
+                    .sendBroadcast(intent);
         } catch (Exception exception) {
             Log.e(TAG, "onListenerConnected: " + exception.getMessage());
         }
 
         super.onListenerConnected();
+    }
+
+    @Override
+    public void onListenerDisconnected() {
+        if (instance == this) {
+            instance = null;
+        }
+        super.onListenerDisconnected();
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -85,12 +95,14 @@ public class NotificationService extends NotificationListenerService {
 
         if (notifications != null) {
             for (StatusBarNotification notification : notifications) {
-                String packageName = notification.getPackageName();
+                if (notification != null && notification.getNotification() != null) {
+                    String packageName = notification.getPackageName();
 
-                if (!((notification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) ==
-                        Notification.FLAG_GROUP_SUMMARY)) {
-                    notificationMap.put(packageName,
-                            notificationMap.getOrDefault(packageName, 0) + 1);
+                    if (!((notification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) ==
+                            Notification.FLAG_GROUP_SUMMARY)) {
+                        notificationMap.put(packageName,
+                                notificationMap.getOrDefault(packageName, 0) + 1);
+                    }
                 }
             }
         }
@@ -100,21 +112,29 @@ public class NotificationService extends NotificationListenerService {
 
     @SuppressLint("UnsafeImplicitIntentLaunch")
     private void sendBroadcastForNotification(StatusBarNotification notification) {
-        Intent intent = new Intent();
-        intent.setAction(UPDATE_NOTIFICATIONS);
+        Intent intent = new Intent(UPDATE_NOTIFICATIONS);
+        intent.setPackage(getPackageName());
 
         int count = 0;
-        for (StatusBarNotification statusBarNotification : getActiveNotifications()) {
-            if (statusBarNotification.getPackageName().equals(notification.getPackageName()) &&
-                    !((statusBarNotification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) ==
-                            Notification.FLAG_GROUP_SUMMARY)) {
-                count++;
+        StatusBarNotification[] active = getActiveNotifications();
+        if (active != null && notification != null) {
+            for (StatusBarNotification statusBarNotification : active) {
+                if (statusBarNotification != null && statusBarNotification.getNotification() != null &&
+                        statusBarNotification.getPackageName().equals(notification.getPackageName()) &&
+                        !((statusBarNotification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) ==
+                                Notification.FLAG_GROUP_SUMMARY)) {
+                    count++;
+                }
             }
         }
 
-        intent.putExtra(TARGET_NOTIFICATION, notification.getPackageName());
+        if (notification != null) {
+            intent.putExtra(TARGET_NOTIFICATION, notification.getPackageName());
+        }
         intent.putExtra(NOTIFICATION_COUNT, count);
 
         sendBroadcast(intent);
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this)
+                .sendBroadcast(intent);
     }
 }

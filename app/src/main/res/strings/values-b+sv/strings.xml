@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Snöbyar och åska</string>
     <string name="weather_source">Källa: met.no</string>
 
-    <string name="accessibility_service_description">Tjänstens enda syfte är att möjliggöra låsskärmsgesten på hemskärmen. Den samlar inte in eller delar data med någon tredje part.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Visa aviseringsräknare</string>
+    <string name="display_notification_count">Visa antal aviseringar</string>
+    <string name="notification_counter_color">Prickfärg</string>
+    <string name="hex_code">HEX-kod</string>
 </resources>

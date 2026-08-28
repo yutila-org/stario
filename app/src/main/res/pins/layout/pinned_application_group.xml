@@ -67,4 +67,14 @@
 
     </RelativeLayout>
 
+    <com.stario.launcher.ui.notifications.NotificationDotView
+        android:id="@+id/notification_dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationX="6dp"
+        android:translationY="-6dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/icon_container"
+        app:layout_constraintTop_toTopOf="@id/icon_container" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

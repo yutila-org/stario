@@ -207,5 +207,9 @@
     <string name="snow_showers_and_thunder">Заряды снега с грозой</string>
     <string name="weather_source">Источник: met.no</string>
 
-    <string name="accessibility_service_description">Служба предназначена исключительно для включения жеста блокировки экрана на главном экране. Она не собирает и не передает данные третьим лицам.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Отображать счетчик уведомлений</string>
+    <string name="display_notification_count">Показывать количество уведомлений</string>
+    <string name="notification_counter_color">Цвет точки</string>
+    <string name="hex_code">HEX-код</string>
 </resources>

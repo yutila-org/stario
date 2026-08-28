@@ -50,7 +50,6 @@ import com.stario.launcher.apps.CategoryManager;
 import com.stario.launcher.preferences.Entry;
 import com.stario.launcher.themes.ThemedActivity;
 import com.stario.launcher.ui.common.StylizedClockView;
-import com.stario.launcher.ui.common.lock.LockDetector;
 import com.stario.launcher.ui.dialogs.ActionDialog;
 import com.stario.launcher.utils.Utils;
 
@@ -69,11 +68,8 @@ public class HomeScreenDialog extends ActionDialog {
 
     // Dynamic views
     private MaterialSwitch pinnedCategorySwitch;
-    private MaterialSwitch lockAnimSwitch;
     private TextView pinnedCategoryName;
     private MaterialSwitch mediaSwitch;
-    private MaterialSwitch lockSwitch;
-    private View lockAnimContainer;
 
     public HomeScreenDialog(@NonNull ThemedActivity activity) {
         super(activity);
@@ -95,16 +91,12 @@ public class HomeScreenDialog extends ActionDialog {
 
         pinnedCategoryName = root.findViewById(R.id.pinned_category_name);
         pinnedCategorySwitch = root.findViewById(R.id.pinned_category);
-        lockAnimContainer = root.findViewById(R.id.lock_animation_container);
-        lockAnimSwitch = root.findViewById(R.id.lock_animation);
         mediaSwitch = root.findViewById(R.id.media);
         scroller = root.findViewById(R.id.scroller);
-        lockSwitch = root.findViewById(R.id.lock);
 
         initGeneralSection();
         initClockSection();
         initWeatherSection();
-        initGestureSection();
 
         return root;
     }
@@ -253,38 +245,11 @@ public class HomeScreenDialog extends ActionDialog {
                                 .apply());
     }
 
-    private void initGestureSection() {
-        // Double Tap Lock Switch
-        setupSwitch(lockSwitch, root.findViewById(R.id.lock_container),
-                settingsPrefs.getBoolean(LockDetector.PREFERENCE_ENTRY, false),
-                (button, checked) -> {
-                    settingsPrefs.edit()
-                            .putBoolean(LockDetector.PREFERENCE_ENTRY, checked)
-                            .apply();
-
-                    if (checked && !Utils.isAccessibilityServiceEnabled(activity)) {
-                        showAccessibilityPermissionDialog();
-                    }
-
-                    updateLockAnimationState(checked);
-                });
-
-        // Legacy Lock Animation
-        setupSwitch(lockAnimSwitch, root.findViewById(R.id.lock_animation_container),
-                settingsPrefs.getBoolean(LockDetector.LEGACY_ANIMATION, false),
-                (button, checked) ->
-                        settingsPrefs.edit()
-                                .putBoolean(LockDetector.LEGACY_ANIMATION, checked)
-                                .apply());
-        updateLockAnimationState(settingsPrefs.getBoolean(LockDetector.PREFERENCE_ENTRY, false));
-    }
-
     @Override
     public void show() {
         super.show();
 
         checkNotificationPermission();
-        checkAccessibilityPermission();
 
         scroller.scrollTo(0, 0);
     }
@@ -292,12 +257,6 @@ public class HomeScreenDialog extends ActionDialog {
     private void checkNotificationPermission() {
         if (!Utils.isNotificationServiceEnabled(activity)) {
             mediaSwitch.setChecked(false);
-        }
-    }
-
-    private void checkAccessibilityPermission() {
-        if (!Utils.isAccessibilityServiceEnabled(activity)) {
-            lockSwitch.setChecked(false);
         }
     }
 
@@ -312,16 +271,6 @@ public class HomeScreenDialog extends ActionDialog {
             return CategoryManager.getInstance().get(UUID.fromString(identifier)) != null;
         } catch (IllegalArgumentException exception) {
             return false;
-        }
-    }
-
-    private void updateLockAnimationState(boolean enabled) {
-        lockAnimContainer.setAlpha(enabled ? 1f : 0.6f);
-
-        if (enabled) {
-            lockAnimContainer.setOnClickListener((view) -> lockAnimSwitch.performClick());
-        } else {
-            lockAnimContainer.setOnClickListener(null);
         }
     }
 
@@ -356,13 +305,6 @@ public class HomeScreenDialog extends ActionDialog {
         NotificationConfigurator dialog = new NotificationConfigurator(activity);
 
         dialog.setOnDismissListener(d -> checkNotificationPermission());
-        dialog.show();
-    }
-
-    private void showAccessibilityPermissionDialog() {
-        AccessibilityConfigurator dialog = new AccessibilityConfigurator(activity);
-
-        dialog.setOnDismissListener(d -> checkAccessibilityPermission());
         dialog.show();
     }
 

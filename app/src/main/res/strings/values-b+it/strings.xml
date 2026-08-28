@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Rovesci di neve e tuoni</string>
     <string name="weather_source">Fonte: met.no</string>
 
-    <string name="accessibility_service_description">Questo servizio ha il solo scopo di abilitare la gesture di blocco dello schermo nella home. Non raccoglie né condivide dati con terze parti.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Mostra contatore notifiche</string>
+    <string name="display_notification_count">Mostra conteggio notifiche</string>
+    <string name="notification_counter_color">Colore del punto</string>
+    <string name="hex_code">Codice HEX</string>
 </resources>

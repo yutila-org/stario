@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Kar sağanağı ve gök gürültüsü</string>
     <string name="weather_source">Kaynak: met.no</string>
 
-    <string name="accessibility_service_description">Hizmetin tek amacı, ana ekranda ekran kilitleme hareketini etkinleştirmektir. Herhangi bir veriyi toplamaz veya üçüncü taraflarla paylaşmaz.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Bildirim sayacını göster</string>
+    <string name="display_notification_count">Bildirim sayısını göster</string>
+    <string name="notification_counter_color">Nokta rengi</string>
+    <string name="hex_code">HEX kodu</string>
 </resources>

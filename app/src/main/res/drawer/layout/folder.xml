@@ -38,6 +38,16 @@
         app:layout_constraintDimensionRatio="W,1:1"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.stario.launcher.ui.notifications.NotificationDotView
+        android:id="@+id/notification_dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationX="6dp"
+        android:translationY="-6dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/items"
+        app:layout_constraintTop_toTopOf="@id/items" />
+
     <TextView
         android:id="@+id/category"
         android:layout_width="match_parent"

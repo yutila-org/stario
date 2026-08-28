@@ -62,14 +62,8 @@ Stario is a minimalist Android launcher designed to organize applications effici
 
 Yutila guarantees that Stario will remain a freely accessible, independent binary, distributed independently of the Google Play ecosystem and irrespective of future OS-level verification constraints.
 
-### Standard Installation
-
-1. Download the compiled `APK` directly from the [GitHub Releases](https://github.com/yutila-org/stario/releases/latest) page.
-2. Navigate to **Settings > Apps > Special app access > Install unknown apps** (path may vary by OEM).
-3. Grant installation permissions to your designated file manager or browser.
-4. Execute the APK package to initiate installation.
-
-### Obtainium (Direct Updates)
+### Obtainium
+###### Direct Updates
 
 To preserve privacy and receive direct updates without telemetry tracking, configure [Obtainium](https://github.com/ImranR98/Obtainium):
 
@@ -81,7 +75,16 @@ To preserve privacy and receive direct updates without telemetry tracking, confi
    - **Install automatically:** Enabled
 5. Select **Add** to track releases and fetch updates directly.
 
-### CLI (Fallback)
+### Releases
+###### Standard Installation
+
+1. Download the compiled `APK` directly from the [GitHub Releases](https://github.com/yutila-org/stario/releases/latest) page.
+2. Navigate to **Settings > Apps > Special app access > Install unknown apps** (path may vary by OEM).
+3. Grant installation permissions to your designated file manager or browser.
+4. Execute the APK package to initiate installation.
+
+
+### CLI
 
 For OEM builds or future OS versions that aggressively block on-device unverified package parsing, utilize the Android Debug Bridge (`adb`):
 

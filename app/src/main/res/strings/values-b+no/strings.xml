@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Snøbyger og torden</string>
     <string name="weather_source">Kilde: met.no</string>
 
-    <string name="accessibility_service_description">Tjenesten har som eneste formål å aktivere låseskjermbevegelse på hjemskjermen. Den samler ikke inn eller deler data med tredjeparter.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Vis varslingsteller</string>
+    <string name="display_notification_count">Vis antall varsler</string>
+    <string name="notification_counter_color">Prikkfarge</string>
+    <string name="hex_code">HEX-kode</string>
 </resources>

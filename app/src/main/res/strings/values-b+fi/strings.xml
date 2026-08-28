@@ -202,5 +202,9 @@
     <string name="snow_showers_and_thunder">Lumi- ja ukkoskuuroja</string>
     <string name="weather_source">Lähde: met.no</string>
 
-    <string name="accessibility_service_description">Palvelun ainoa tarkoitus on mahdollistaa näytön lukitusele aloitusnäytöllä. Se ei kerää tai jaa tietoja kolmansille osapuolille.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Näytä ilmoituslaskuri</string>
+    <string name="display_notification_count">Näytä ilmoitusten määrä</string>
+    <string name="notification_counter_color">Pisteen väri</string>
+    <string name="hex_code">HEX-koodi</string>
 </resources>

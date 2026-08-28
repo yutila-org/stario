@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Hózivatarok</string>
     <string name="weather_source">Forrás: met.no</string>
 
-    <string name="accessibility_service_description">A szolgáltatás kizárólag a kezdőképernyőn történő képernyőlezáró gesztus lehetővé tételére szolgál. Nem gyűjt és nem oszt meg adatokat harmadik felekkel.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Értesítésszámláló megjelenítése</string>
+    <string name="display_notification_count">Értesítések számának megjelenítése</string>
+    <string name="notification_counter_color">Pont színe</string>
+    <string name="hex_code">HEX kód</string>
 </resources>

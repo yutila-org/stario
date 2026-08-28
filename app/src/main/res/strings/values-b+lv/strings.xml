@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Sniega brāzmas un pērkons</string>
     <string name="weather_source">Avots: met.no</string>
 
-    <string name="accessibility_service_description">Pakalpojuma vienīgais mērķis ir iespējot ekrāna bloķēšanas žestu sākuma ekrānā. Tas neievāc un neizpauž datus trešajām personām.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Rādīt paziņojumu skaitītāju</string>
+    <string name="display_notification_count">Rādīt paziņojumu skaitu</string>
+    <string name="notification_counter_color">Punkta krāsa</string>
+    <string name="hex_code">HEX kods</string>
 </resources>

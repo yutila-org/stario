@@ -225,6 +225,9 @@
     <string name="snow_showers_and_thunder">Снігові заряди з грозою</string>
     <string name="weather_source">Джерело: met.no</string>
 
-    <!-- Accessibility service -->
-    <string name="accessibility_service_description">Ця служба призначена виключно для ввімкнення жесту блокування на головному екрані. Вона не збирає та не передає дані жодній третій стороні.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Відображати лічильник сповіщень</string>
+    <string name="display_notification_count">Показувати кількість сповіщень</string>
+    <string name="notification_counter_color">Колір крапки</string>
+    <string name="hex_code">HEX-код</string>
 </resources>

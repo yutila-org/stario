@@ -37,6 +37,7 @@ public enum Entry {
     NOTES("NOTES"),
     SHEET("SHEET"),
     THEME("THEME"),
+    NOTIFICATION_DOTS("NOTIFICATION_DOTS"),
     ICONS("ICONS"),
     CLOCK("CLOCK");
 

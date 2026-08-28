@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Snebyger og torden</string>
     <string name="weather_source">Kilde: met.no</string>
 
-    <string name="accessibility_service_description">Denne tjeneste har udelukkende til formål at muliggøre låseskærms-bevægelser på startskærmen. Den indsamler eller deler ikke data med nogen tredjepart.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Vis beskedtæller</string>
+    <string name="display_notification_count">Vis antal beskeder</string>
+    <string name="notification_counter_color">Prikfarve</string>
+    <string name="hex_code">HEX-kode</string>
 </resources>

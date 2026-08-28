@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Pancadas de neve e trovões</string>
     <string name="weather_source">Fonte: met.no</string>
 
-    <string name="accessibility_service_description">Este serviço serve apenas para permitir o gesto de bloqueio de tela na tela inicial. Ele não coleta nem compartilha dados com terceiros.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Exibir contador de notificações</string>
+    <string name="display_notification_count">Exibir contagem de notificações</string>
+    <string name="notification_counter_color">Cor do ponto</string>
+    <string name="hex_code">Código HEX</string>
 </resources>

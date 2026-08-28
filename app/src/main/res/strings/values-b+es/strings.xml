@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Chubascos de nieve y truenos</string>
     <string name="weather_source">Fuente: met.no</string>
 
-    <string name="accessibility_service_description">Este servicio tiene el único propósito de permitir el gesto de bloqueo de pantalla en la pantalla de inicio. No recopila ni comparte datos con terceros.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Mostrar contador de notificaciones</string>
+    <string name="display_notification_count">Mostrar cantidad de notificaciones</string>
+    <string name="notification_counter_color">Color del punto</string>
+    <string name="hex_code">Código HEX</string>
 </resources>

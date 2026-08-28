@@ -44,13 +44,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <carbon.widget.ConstraintLayout
+        <com.stario.launcher.ui.notifications.NotificationDotView
             android:id="@+id/notification_dot"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:background="?attr/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:translationX="4dp"
+            android:translationY="-4dp"
             android:visibility="gone"
-            app:carbon_cornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="@id/icon"
             app:layout_constraintTop_toTopOf="@id/icon" />
 

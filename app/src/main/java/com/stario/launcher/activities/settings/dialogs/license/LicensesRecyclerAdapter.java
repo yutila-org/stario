@@ -35,6 +35,7 @@ public class LicensesRecyclerAdapter extends RecyclerView.Adapter<LicensesRecycl
             {"Android Jetpack", "The Android Open Source Project", "Apache 2.0"},
             {"Android Support Library", "The Android Open Source Project", "Apache 2.0"},
             {"Carbon", "Zileoni", "Apache 2.0"},
+            {"ColorPickerView", "skydoves", "Apache 2.0"},
             {"Date Parser", "sisyphsu", "MIT"},
             {"Glide", "Meta", "MIT"},
             {"Glide Transformations", "Daichi Furiya", "Apache 2.0"},

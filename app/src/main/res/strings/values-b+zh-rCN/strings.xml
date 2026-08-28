@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">雷阵雪</string>
     <string name="weather_source">来源：met.no</string>
 
-    <string name="accessibility_service_description">此服务仅用于支持主屏幕上的锁定手势。它不会收集或与任何第三方共享数据。</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">显示通知计数器</string>
+    <string name="display_notification_count">显示未读通知数量</string>
+    <string name="notification_counter_color">圆点颜色</string>
+    <string name="hex_code">HEX代码</string>
 </resources>

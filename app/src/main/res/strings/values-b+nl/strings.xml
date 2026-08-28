@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Sneeuwbuien en onweer</string>
     <string name="weather_source">Bron: met.no</string>
 
-    <string name="accessibility_service_description">De service heeft als enig doel het inschakelen van het vergrendelgebaar op het startscherm. Er worden geen gegevens verzameld of gedeeld met derden.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Meldingssteller weergeven</string>
+    <string name="display_notification_count">Aantal meldingen weergeven</string>
+    <string name="notification_counter_color">Stipkleur</string>
+    <string name="hex_code">HEX-code</string>
 </resources>

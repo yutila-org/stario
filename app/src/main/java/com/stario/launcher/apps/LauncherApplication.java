@@ -79,6 +79,14 @@ public class LauncherApplication implements Comparable<LauncherApplication> {
         return icon;
     }
 
+    public int getNotificationCount() {
+        return notificationCount;
+    }
+
+    public void setNotificationCount(int notificationCount) {
+        this.notificationCount = notificationCount;
+    }
+
     public UUID getCategory() {
         return category;
     }

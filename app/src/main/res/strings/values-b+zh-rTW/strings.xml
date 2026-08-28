@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">雷陣雪</string>
     <string name="weather_source">來源：met.no</string>
 
-    <string name="accessibility_service_description">此服務唯一的目的是在主螢幕上啟用鎖定手勢。它不會收集或與任何第三方共享數據。</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">顯示通知計數器</string>
+    <string name="display_notification_count">顯示未讀通知數量</string>
+    <string name="notification_counter_color">圓點顏色</string>
+    <string name="hex_code">HEX代碼</string>
 </resources>

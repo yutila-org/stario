@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Schneeschauer und Donner</string>
     <string name="weather_source">Quelle: met.no</string>
 
-    <string name="accessibility_service_description">Dieser Dienst dient ausschließlich dazu, die Bildschirmsperre-Geste auf dem Startbildschirm zu ermöglichen. Er sammelt oder teilt keine Daten mit Dritten.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Benachrichtigungszähler anzeigen</string>
+    <string name="display_notification_count">Anzahl der Benachrichtigungen anzeigen</string>
+    <string name="notification_counter_color">Punktfarbe</string>
+    <string name="hex_code">HEX-Code</string>
 </resources>

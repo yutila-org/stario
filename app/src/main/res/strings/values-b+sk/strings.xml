@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Snehové prehánky a búrky</string>
     <string name="weather_source">Zdroj: met.no</string>
 
-    <string name="accessibility_service_description">Služba má jediný účel, a to povoliť gesto uzamknutia obrazovky na domovskej obrazovke. Nezhromažďuje ani nezdieľa údaje so žiadnou treťou stranou.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Zobraziť počítadlo upozornení</string>
+    <string name="display_notification_count">Zobraziť počet upozornení</string>
+    <string name="notification_counter_color">Farba bodky</string>
+    <string name="hex_code">HEX kód</string>
 </resources>

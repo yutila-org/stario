@@ -18,8 +18,11 @@
 package com.stario.launcher.sheet.drawer;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.LauncherActivityInfo;
 import android.content.pm.LauncherApps;
@@ -39,6 +42,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,11 +51,14 @@ import com.stario.launcher.apps.LauncherApplication;
 import com.stario.launcher.apps.ProfileApplicationManager;
 import com.stario.launcher.apps.ProfileManager;
 import com.stario.launcher.apps.popup.ApplicationCustomizationDialog;
+import com.stario.launcher.preferences.Entry;
+import com.stario.launcher.preferences.NotificationDots;
 import com.stario.launcher.preferences.Vibrations;
 import com.stario.launcher.sheet.SheetsFocusController;
 import com.stario.launcher.themes.ThemedActivity;
 import com.stario.launcher.ui.Measurements;
 import com.stario.launcher.ui.icons.AdaptiveIconView;
+import com.stario.launcher.ui.notifications.NotificationDotView;
 import com.stario.launcher.ui.popup.PopupMenu;
 import com.stario.launcher.ui.recyclers.async.AsyncRecyclerAdapter;
 import com.stario.launcher.ui.recyclers.async.InflationType;
@@ -71,6 +78,12 @@ public abstract class RecyclerApplicationAdapter
     private final boolean showLabels;
     private final ThemedActivity activity;
     private final ItemTouchHelper itemTouchHelper;
+
+    private final SharedPreferences notificationDotsPrefs;
+    private final BroadcastReceiver notificationDotsReceiver;
+    protected boolean notificationDotsEnabled;
+    protected boolean notificationDotsShowCount;
+    protected int notificationDotsColor;
 
     public RecyclerApplicationAdapter(ThemedActivity activity) {
         this(activity, true, null, InflationType.ASYNC);
@@ -110,13 +123,40 @@ public abstract class RecyclerApplicationAdapter
         this.activity = activity;
         this.itemTouchHelper = itemTouchHelper;
 
+        this.notificationDotsPrefs = activity.getApplicationContext()
+                .getSharedPreferences(Entry.NOTIFICATION_DOTS);
+        loadNotificationDotsSettings();
+
+        this.notificationDotsReceiver = new BroadcastReceiver() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                loadNotificationDotsSettings();
+                notifyDataSetChanged();
+            }
+        };
+
+        LocalBroadcastManager.getInstance(activity).registerReceiver(
+                notificationDotsReceiver,
+                new IntentFilter(NotificationDots.INTENT_NOTIFICATION_DOTS_CHANGED)
+        );
+
         setHasStableIds(true);
+    }
+
+    protected void loadNotificationDotsSettings() {
+        this.notificationDotsEnabled = notificationDotsPrefs.getBoolean(
+                NotificationDots.NOTIFICATION_DOTS_ENABLED, true);
+        this.notificationDotsShowCount = notificationDotsPrefs.getBoolean(
+                NotificationDots.NOTIFICATION_DOTS_SHOW_COUNT, true);
+        this.notificationDotsColor = notificationDotsPrefs.getInt(
+                NotificationDots.NOTIFICATION_DOTS_COLOR, NotificationDots.DEFAULT_COLOR);
     }
 
     public class ApplicationViewHolder extends AsyncViewHolder {
         private AdaptiveIconView icon;
         private PopupWindow dialog;
-        private View notification;
+        public NotificationDotView notification;
         private TextView label;
 
         public ApplicationViewHolder() {
@@ -391,9 +431,13 @@ public abstract class RecyclerApplicationAdapter
         if (application != LauncherApplication.FALLBACK_APP) {
             viewHolder.setLabel(application.getLabel());
 
-            // TODO: notification dots
             if (viewHolder.notification != null) {
-                viewHolder.notification.setVisibility(View.GONE);
+                if (notificationDotsEnabled && application.getNotificationCount() > 0) {
+                    viewHolder.notification.update(application.getNotificationCount(),
+                            notificationDotsShowCount, notificationDotsColor);
+                } else {
+                    viewHolder.notification.setVisibility(View.GONE);
+                }
             }
 
             viewHolder.icon.setApplication(application);
@@ -402,6 +446,15 @@ public abstract class RecyclerApplicationAdapter
         }
 
         viewHolder.icon.setTag(R.id.stagger_order_tag, index);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        try {
+            LocalBroadcastManager.getInstance(activity).unregisterReceiver(notificationDotsReceiver);
+        } catch (Exception ignored) {
+        }
     }
 
     @Override

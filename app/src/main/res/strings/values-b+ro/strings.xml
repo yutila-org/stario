@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Averse de zăpadă și tunete</string>
     <string name="weather_source">Sursa: met.no</string>
 
-    <string name="accessibility_service_description">Acest serviciu are unicul scop de a activa gestul de blocare a ecranului pe ecranul principal. Nu colectează și nu partajează date cu terți.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Afișează contor notificări</string>
+    <string name="display_notification_count">Afișează numărul de notificări</string>
+    <string name="notification_counter_color">Culoare punct</string>
+    <string name="hex_code">Cod HEX</string>
 </resources>

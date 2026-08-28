@@ -17,6 +17,12 @@
 
 package com.stario.launcher.sheet.drawer.category.list;
 
+import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -24,17 +30,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.stario.launcher.R;
 import com.stario.launcher.apps.Category;
 import com.stario.launcher.apps.CategoryManager;
+import com.stario.launcher.preferences.Entry;
+import com.stario.launcher.preferences.NotificationDots;
 import com.stario.launcher.preferences.Vibrations;
 import com.stario.launcher.sheet.drawer.category.Categories;
 import com.stario.launcher.sheet.drawer.category.folder.Folder;
 import com.stario.launcher.themes.ThemedActivity;
 import com.stario.launcher.ui.icons.AdaptiveIconView;
+import com.stario.launcher.ui.notifications.NotificationDotView;
 import com.stario.launcher.ui.recyclers.async.AsyncRecyclerAdapter;
 import com.stario.launcher.ui.utils.UiUtils;
 import com.stario.launcher.ui.utils.animation.Animation;
@@ -55,6 +65,12 @@ public class FolderListAdapter extends AsyncRecyclerAdapter<FolderListAdapter.Vi
     private final FolderList folderList;
     private final Folder folder;
 
+    private final SharedPreferences notificationDotsPrefs;
+    private final BroadcastReceiver notificationDotsReceiver;
+    private boolean notificationDotsEnabled;
+    private boolean notificationDotsShowCount;
+    private int notificationDotsColor;
+
     public FolderListAdapter(ThemedActivity activity, FolderList folderList) {
         super(activity);
 
@@ -63,6 +79,24 @@ public class FolderListAdapter extends AsyncRecyclerAdapter<FolderListAdapter.Vi
 
         this.categoryManager = CategoryManager.getInstance();
         this.folder = new Folder();
+
+        this.notificationDotsPrefs = activity.getApplicationContext()
+                .getSharedPreferences(Entry.NOTIFICATION_DOTS);
+        loadNotificationDotsSettings();
+
+        this.notificationDotsReceiver = new BroadcastReceiver() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                loadNotificationDotsSettings();
+                notifyDataSetChanged();
+            }
+        };
+
+        LocalBroadcastManager.getInstance(activity).registerReceiver(
+                notificationDotsReceiver,
+                new IntentFilter(NotificationDots.INTENT_NOTIFICATION_DOTS_CHANGED)
+        );
 
         this.listener = new CategoryManager.CategoryListener() {
             int preparedRemovalIndex = -1;
@@ -162,15 +196,26 @@ public class FolderListAdapter extends AsyncRecyclerAdapter<FolderListAdapter.Vi
         }
     }
 
+    private void loadNotificationDotsSettings() {
+        this.notificationDotsEnabled = notificationDotsPrefs.getBoolean(
+                NotificationDots.NOTIFICATION_DOTS_ENABLED, true);
+        this.notificationDotsShowCount = notificationDotsPrefs.getBoolean(
+                NotificationDots.NOTIFICATION_DOTS_SHOW_COUNT, true);
+        this.notificationDotsColor = notificationDotsPrefs.getInt(
+                NotificationDots.NOTIFICATION_DOTS_COLOR, NotificationDots.DEFAULT_COLOR);
+    }
+
     public class ViewHolder extends AsyncViewHolder {
         private TextView category;
         private RecyclerView recycler;
         private FolderListItemAdapter adapter;
+        private NotificationDotView notification;
 
         @Override
         protected void onInflated() {
             category = itemView.findViewById(R.id.category);
             recycler = itemView.findViewById(R.id.items);
+            notification = itemView.findViewById(R.id.notification_dot);
 
             recycler.setLayoutManager(createManager());
             recycler.setItemAnimator(null);
@@ -217,6 +262,16 @@ public class FolderListAdapter extends AsyncRecyclerAdapter<FolderListAdapter.Vi
         Category category = categoryManager.get(index);
 
         viewHolder.category.setText(categoryManager.getCategoryName(category.identifier));
+
+        if (viewHolder.notification != null) {
+            int categoryCount = category != null ? category.getNotificationCount() : 0;
+            if (notificationDotsEnabled && categoryCount > 0) {
+                viewHolder.notification.update(categoryCount,
+                        notificationDotsShowCount, notificationDotsColor, true);
+            } else {
+                viewHolder.notification.setVisibility(View.GONE);
+            }
+        }
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             private AdaptiveIconView getIcon(View view) {
@@ -312,6 +367,10 @@ public class FolderListAdapter extends AsyncRecyclerAdapter<FolderListAdapter.Vi
     @Override
     public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         categoryManager.removeOnCategoryUpdateListener(listener);
+        try {
+            LocalBroadcastManager.getInstance(activity).unregisterReceiver(notificationDotsReceiver);
+        } catch (Exception ignored) {
+        }
         super.onDetachedFromRecyclerView(recyclerView);
     }
 

@@ -211,6 +211,25 @@ class PinnedAppsAdapter extends RecyclerApplicationAdapter {
             pinedViewHolder.group.setLayoutManager(new GridLayoutManager(activity, 2));
             pinedViewHolder.group.setAdapter(new PinnedAppsGroupAdapter(activity,
                     category, itemCount - 1));
+
+            if (pinedViewHolder.notification != null) {
+                int groupNotificationCount = 0;
+                if (category != null) {
+                    for (int i = itemCount - 1; i < category.getSize(); i++) {
+                        LauncherApplication app = category.get(i);
+                        if (app != null) {
+                            groupNotificationCount += app.getNotificationCount();
+                        }
+                    }
+                }
+
+                if (notificationDotsEnabled && groupNotificationCount > 0) {
+                    pinedViewHolder.notification.update(groupNotificationCount,
+                            notificationDotsShowCount, notificationDotsColor, true);
+                } else {
+                    pinedViewHolder.notification.setVisibility(View.GONE);
+                }
+            }
         }
     }
 

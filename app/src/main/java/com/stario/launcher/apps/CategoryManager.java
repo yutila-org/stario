@@ -132,6 +132,10 @@ public final class CategoryManager {
                         for (Category.CategoryItemListener itemListener : category.listeners) {
                             itemListener.onUpdated(application);
                         }
+
+                        for (CategoryListener categoryListener : categoryListeners) {
+                            categoryListener.onChanged(category);
+                        }
                     }
                 }
             }

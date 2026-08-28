@@ -44,6 +44,18 @@ public class Category {
         return applications.size();
     }
 
+    public int getNotificationCount() {
+        int count = 0;
+        synchronized (applications) {
+            for (LauncherApplication application : applications) {
+                if (application != null) {
+                    count += application.getNotificationCount();
+                }
+            }
+        }
+        return count;
+    }
+
     @Nullable
     public LauncherApplication get(int index) {
         if (index < applications.size()) {

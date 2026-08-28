@@ -118,6 +118,8 @@ public final class ProfileManager {
                 //noinspection UnspecifiedRegisterReceiverFlag
                 stario.registerReceiver(receiver, getIntentFilter());
             }
+
+            LocalBroadcastManager.getInstance(stario).registerReceiver(receiver, getIntentFilter());
         } else if (refreshIcons) {
             instance.iconPacks.refresh();
             instance.update();
@@ -130,74 +132,117 @@ public final class ProfileManager {
         return new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                UserHandle handle;
-                if (Utils.isMinimumSDK(Build.VERSION_CODES.TIRAMISU)) {
-                    handle = intent.getParcelableExtra(Intent.EXTRA_USER, UserHandle.class);
-                } else {
-                    handle = intent.getParcelableExtra(Intent.EXTRA_USER);
-                }
-
-                if (handle == null) {
+                String action = intent.getAction();
+                if (action == null) {
                     return;
                 }
 
-                String action = intent.getAction();
-                if (action != null) {
-                    switch (action) {
-                        case Intent.ACTION_MANAGED_PROFILE_ADDED:
-                            if (instance.profilesMap.containsKey(handle)) {
-                                return;
+                UserHandle handle = null;
+                if (action.startsWith("android.intent.action.MANAGED_PROFILE_")) {
+                    if (Utils.isMinimumSDK(Build.VERSION_CODES.TIRAMISU)) {
+                        handle = intent.getParcelableExtra(Intent.EXTRA_USER, UserHandle.class);
+                    } else {
+                        handle = intent.getParcelableExtra(Intent.EXTRA_USER);
+                    }
+
+                    if (handle == null) {
+                        return;
+                    }
+                }
+
+                switch (action) {
+                    case Intent.ACTION_MANAGED_PROFILE_ADDED:
+                        if (instance.profilesMap.containsKey(handle)) {
+                            return;
+                        }
+
+                        LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
+
+                        for (UserHandle profileHandle : launcherApps.getProfiles()) {
+                            if (handle.equals(profileHandle)) {
+                                ProfileApplicationManager manager = new ProfileApplicationManager(
+                                        (Stario) context.getApplicationContext(), profileHandle
+                                );
+
+                                instance.profilesMap.put(profileHandle, manager);
+                                instance.profilesList.add(manager);
+
+                                for (LauncherProfileListener listener : instance.listeners) {
+                                    if (listener != null) {
+                                        listener.onInserted(profileHandle);
+                                    }
+                                }
                             }
+                        }
+                        break;
+                    case Intent.ACTION_MANAGED_PROFILE_REMOVED: {
+                        ProfileApplicationManager manager = instance.profilesMap.remove(handle);
 
-                            LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
+                        if (manager == null) {
+                            return;
+                        }
 
-                            for (UserHandle profileHandle : launcherApps.getProfiles()) {
-                                if (handle.equals(profileHandle)) {
-                                    ProfileApplicationManager manager = new ProfileApplicationManager(
-                                            (Stario) context.getApplicationContext(), profileHandle
-                                    );
+                        instance.profilesList.remove(manager);
+                        for (LauncherProfileListener listener : instance.listeners) {
+                            if (listener != null) {
+                                listener.onRemoved(handle);
+                            }
+                        }
+                        break;
+                    }
+                    case Intent.ACTION_MANAGED_PROFILE_AVAILABLE:
+                        intent = new Intent(getProfileAvailabilityIntentAction(handle));
+                        intent.putExtra(PROFILE_AVAILABLE_EXTRA, true);
 
-                                    instance.profilesMap.put(profileHandle, manager);
-                                    instance.profilesList.add(manager);
+                        LocalBroadcastManager.getInstance(context)
+                                .sendBroadcastSync(intent);
+                        break;
+                    case Intent.ACTION_MANAGED_PROFILE_UNAVAILABLE:
+                        intent = new Intent(getProfileAvailabilityIntentAction(handle));
+                        intent.putExtra(PROFILE_AVAILABLE_EXTRA, false);
 
-                                    for (LauncherProfileListener listener : instance.listeners) {
-                                        if (listener != null) {
-                                            listener.onInserted(profileHandle);
+                        LocalBroadcastManager.getInstance(context)
+                                 .sendBroadcastSync(intent);
+                        break;
+                    case com.stario.launcher.services.NotificationService.UPDATE_NOTIFICATIONS: {
+                            String packageName = intent.getStringExtra(com.stario.launcher.services.NotificationService.TARGET_NOTIFICATION);
+                            int count = intent.getIntExtra(com.stario.launcher.services.NotificationService.NOTIFICATION_COUNT, 0);
+
+                            if (packageName != null) {
+                                for (ProfileApplicationManager profileAppManager : instance.profilesList) {
+                                    LauncherApplication application = profileAppManager.get(packageName);
+
+                                    if (application != null) {
+                                        application.setNotificationCount(count);
+                                        profileAppManager.notifyUpdate(application);
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        case com.stario.launcher.services.NotificationService.NOTIFICATIONS_EVENT: {
+                            @SuppressWarnings("unchecked")
+                            HashMap<String, Integer> map = (HashMap<String, Integer>)
+                                    intent.getSerializableExtra(com.stario.launcher.services.NotificationService.TARGET_NOTIFICATION);
+
+                            if (map != null) {
+                                for (ProfileApplicationManager profileAppManager : instance.profilesList) {
+                                    for (int i = 0; i < profileAppManager.getActualSize(); i++) {
+                                        LauncherApplication application = profileAppManager.get(i, true);
+
+                                        if (application != null) {
+                                            int count = map.getOrDefault(application.getInfo().packageName, 0);
+                                            if (application.getNotificationCount() != count) {
+                                                application.setNotificationCount(count);
+                                                profileAppManager.notifyUpdate(application);
+                                            }
                                         }
                                     }
                                 }
                             }
                             break;
-                        case Intent.ACTION_MANAGED_PROFILE_REMOVED:
-                            ProfileApplicationManager manager = instance.profilesMap.remove(handle);
-
-                            if (manager == null) {
-                                return;
-                            }
-
-                            instance.profilesList.remove(manager);
-                            for (LauncherProfileListener listener : instance.listeners) {
-                                if (listener != null) {
-                                    listener.onRemoved(handle);
-                                }
-                            }
-                            break;
-                        case Intent.ACTION_MANAGED_PROFILE_AVAILABLE:
-                            intent = new Intent(getProfileAvailabilityIntentAction(handle));
-                            intent.putExtra(PROFILE_AVAILABLE_EXTRA, true);
-
-                            LocalBroadcastManager.getInstance(context)
-                                    .sendBroadcastSync(intent);
-                            break;
-                        case Intent.ACTION_MANAGED_PROFILE_UNAVAILABLE:
-                            intent = new Intent(getProfileAvailabilityIntentAction(handle));
-                            intent.putExtra(PROFILE_AVAILABLE_EXTRA, false);
-
-                            LocalBroadcastManager.getInstance(context)
-                                    .sendBroadcastSync(intent);
-                            break;
+                        }
                     }
-                }
             }
         };
     }
@@ -221,6 +266,8 @@ public final class ProfileManager {
         intentFilter.addAction(Intent.ACTION_MANAGED_PROFILE_AVAILABLE);
         intentFilter.addAction(Intent.ACTION_MANAGED_PROFILE_UNAVAILABLE);
         intentFilter.addAction(Intent.ACTION_MANAGED_PROFILE_UNLOCKED);
+        intentFilter.addAction(com.stario.launcher.services.NotificationService.UPDATE_NOTIFICATIONS);
+        intentFilter.addAction(com.stario.launcher.services.NotificationService.NOTIFICATIONS_EVENT);
 
         return intentFilter;
     }

@@ -203,5 +203,9 @@
     <string name="snow_showers_and_thunder">Averses de neige et orages</string>
     <string name="weather_source">Source : met.no</string>
 
-    <string name="accessibility_service_description">Ce service a pour seul but de permettre le geste de verrouillage de l’écran sur l’écran d’accueil. Il ne collecte ni ne partage aucune donnée avec des tiers.</string>
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Afficher le compteur de notifications</string>
+    <string name="display_notification_count">Afficher le nombre de notifications</string>
+    <string name="notification_counter_color">Couleur du point</string>
+    <string name="hex_code">Code HEX</string>
 </resources>

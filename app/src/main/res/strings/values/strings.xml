@@ -256,4 +256,10 @@
 
     <!-- Accessibility service -->
     <string name="accessibility_service_description">The service has the soul purpose of enabling lock screen gesture on the home screen. It does not collect or share data with any third party.</string>
+
+    <!-- Notification dots -->
+    <string name="display_notification_counter">Display notification counter</string>
+    <string name="display_notification_count">Display notification count</string>
+    <string name="notification_counter_color">Dot color</string>
+    <string name="hex_code">HEX code</string>
 </resources>
