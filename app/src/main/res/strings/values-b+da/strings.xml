@@ -39,6 +39,9 @@
 
     <string name="media_player">Medieafspiller</string>
     <string name="pinned_category">Fastgjort kategori</string>
+    <string name="pinned_category_mode">Fastgjort kategori-tilstand</string>
+    <string name="pinned_category_mode_folder">Mappe</string>
+    <string name="pinned_category_mode_scroll">Rul</string>
     <string name="lock_gesture">Dobbelttryk for at låse</string>
     <string name="legacy_lock_animation">Gammeldags låseanimation</string>
     <string name="imperial_units"> britiske enheder</string>

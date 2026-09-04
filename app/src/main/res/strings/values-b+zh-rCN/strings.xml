@@ -39,6 +39,9 @@
 
     <string name="media_player">媒体播放器</string>
     <string name="pinned_category">固定类别</string>
+    <string name="pinned_category_mode">固定分类显示模式</string>
+    <string name="pinned_category_mode_folder">文件夹</string>
+    <string name="pinned_category_mode_scroll">滑动</string>
     <string name="lock_gesture">双击锁定</string>
     <string name="legacy_lock_animation">传统锁定动画</string>
     <string name="imperial_units">英制单位</string>

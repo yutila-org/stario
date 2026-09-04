@@ -39,6 +39,9 @@
 
     <string name="media_player">Mediasoitin</string>
     <string name="pinned_category">Kiinnitetty luokka</string>
+    <string name="pinned_category_mode">Kiinnitetyn kategorian tila</string>
+    <string name="pinned_category_mode_folder">Kansio</string>
+    <string name="pinned_category_mode_scroll">Vieritys</string>
     <string name="lock_gesture">Kaksoisnapautus lukitaksesi</string>
     <string name="legacy_lock_animation">Vanha lukitusanimaatio</string>
     <string name="imperial_units">Brittiläiset yksiköt</string>

@@ -39,6 +39,9 @@
 
     <string name="media_player">Mediaspeler</string>
     <string name="pinned_category">Vastgezette categorie</string>
+    <string name="pinned_category_mode">Modus vastgezette categorie</string>
+    <string name="pinned_category_mode_folder">Map</string>
+    <string name="pinned_category_mode_scroll">Scrollen</string>
     <string name="lock_gesture">Dubbeltik om te vergrendelen</string>
     <string name="legacy_lock_animation">Klassieke vergrendelanimatie</string>
     <string name="imperial_units">Imperiale eenheden</string>

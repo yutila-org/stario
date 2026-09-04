@@ -39,6 +39,9 @@
 
     <string name="media_player">Media atskaņotājs</string>
     <string name="pinned_category">Piespraustā kategorija</string>
+    <string name="pinned_category_mode">Piespraustās kategorijas režīms</string>
+    <string name="pinned_category_mode_folder">Mape</string>
+    <string name="pinned_category_mode_scroll">Ritināt</string>
     <string name="lock_gesture">Dubultskāriens, lai bloķētu</string>
     <string name="legacy_lock_animation">Klasiskā bloķēšanas animācija</string>
     <string name="imperial_units">Imperiālās mērvienības</string>

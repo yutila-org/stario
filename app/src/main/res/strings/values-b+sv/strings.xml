@@ -39,6 +39,9 @@
 
     <string name="media_player">Mediaspelare</string>
     <string name="pinned_category">Fäst kategori</string>
+    <string name="pinned_category_mode">Fäst kategoriläge</string>
+    <string name="pinned_category_mode_folder">Mapp</string>
+    <string name="pinned_category_mode_scroll">Rulla</string>
     <string name="lock_gesture">Dubbeltryck för att låsa</string>
     <string name="legacy_lock_animation">Gammal låsanimering</string>
     <string name="imperial_units">Imperialenheter</string>

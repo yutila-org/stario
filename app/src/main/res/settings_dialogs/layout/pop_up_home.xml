@@ -160,6 +160,110 @@
 
                 </carbon.widget.LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/pinned_category_mode_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/pinned_category_mode_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/dm_sans_regular"
+                        android:text="@string/pinned_category_mode"
+                        android:textColor="?attr/colorSecondary"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Folder button -->
+                        <carbon.widget.LinearLayout
+                            android:id="@+id/mode_folder_button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="6dp"
+                            android:background="@drawable/button_toggle_selected"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="18dp"
+                            android:paddingBottom="18dp"
+                            app:carbon_cornerRadius="20dp">
+
+                            <ImageView
+                                android:id="@+id/mode_folder_icon"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_folder"
+                                app:tint="?attr/colorOnSurface" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="8dp" />
+
+                            <TextView
+                                android:id="@+id/mode_folder_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/dm_sans_medium"
+                                android:text="@string/pinned_category_mode_folder"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="16sp" />
+
+                        </carbon.widget.LinearLayout>
+
+                        <!-- Scroll button -->
+                        <carbon.widget.LinearLayout
+                            android:id="@+id/mode_scroll_button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="6dp"
+                            android:background="@drawable/button_toggle_unselected"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="18dp"
+                            android:paddingBottom="18dp"
+                            app:carbon_cornerRadius="20dp">
+
+                            <ImageView
+                                android:id="@+id/mode_scroll_icon"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_scroll_pages"
+                                app:tint="?attr/colorSecondary" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="8dp" />
+
+                            <TextView
+                                android:id="@+id/mode_scroll_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/dm_sans_medium"
+                                android:text="@string/pinned_category_mode_scroll"
+                                android:textColor="?attr/colorSecondary"
+                                android:textSize="16sp" />
+
+                        </carbon.widget.LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

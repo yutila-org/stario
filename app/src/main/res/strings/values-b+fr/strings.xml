@@ -39,6 +39,9 @@
 
     <string name="media_player">Lecteur multimédia</string>
     <string name="pinned_category">Catégorie épinglée</string>
+    <string name="pinned_category_mode">Mode de catégorie épinglée</string>
+    <string name="pinned_category_mode_folder">Dossier</string>
+    <string name="pinned_category_mode_scroll">Défilement</string>
     <string name="lock_gesture">Double-clic pour verrouiller</string>
     <string name="legacy_lock_animation">Animation de verrouillage classique</string>
     <string name="imperial_units">Unités impériales</string>

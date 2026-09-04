@@ -39,6 +39,9 @@
 
     <string name="media_player">Medya oynatıcı</string>
     <string name="pinned_category">Sabitlenmiş kategori</string>
+    <string name="pinned_category_mode">Sabitlenmiş kategori modu</string>
+    <string name="pinned_category_mode_folder">Klasör</string>
+    <string name="pinned_category_mode_scroll">Kaydırma</string>
     <string name="lock_gesture">Kilitlemek için çift dokunun</string>
     <string name="legacy_lock_animation">Eski kilit animasyonu</string>
     <string name="imperial_units">İngiliz ölçü birimleri</string>

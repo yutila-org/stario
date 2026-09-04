@@ -39,6 +39,9 @@
 
     <string name="media_player">Медиаплеер</string>
     <string name="pinned_category">Закрепленная категория</string>
+    <string name="pinned_category_mode">Режим закрепленной категории</string>
+    <string name="pinned_category_mode_folder">Папка</string>
+    <string name="pinned_category_mode_scroll">Прокрутка</string>
     <string name="lock_gesture">Двойное касание для блокировки</string>
     <string name="legacy_lock_animation">Устаревшая анимация блокировки</string>
     <string name="imperial_units">Имперские единицы</string>

@@ -39,6 +39,9 @@
 
     <string name="media_player">Player de mídia</string>
     <string name="pinned_category">Categoria fixada</string>
+    <string name="pinned_category_mode">Modo da categoria fixada</string>
+    <string name="pinned_category_mode_folder">Pasta</string>
+    <string name="pinned_category_mode_scroll">Rolagem</string>
     <string name="lock_gesture">Toque duplo para bloquear</string>
     <string name="legacy_lock_animation">Animação de bloqueio clássica</string>
     <string name="imperial_units">Unidades imperiais</string>

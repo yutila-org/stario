@@ -39,6 +39,9 @@
 
     <string name="media_player">Lettore multimediale</string>
     <string name="pinned_category">Categoria fissata</string>
+    <string name="pinned_category_mode">Modalità categoria bloccata</string>
+    <string name="pinned_category_mode_folder">Cartella</string>
+    <string name="pinned_category_mode_scroll">Scorrimento</string>
     <string name="lock_gesture">Doppio tocco per bloccare</string>
     <string name="legacy_lock_animation">Animazione di blocco classica</string>
     <string name="imperial_units">Unità imperiali</string>

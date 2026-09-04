@@ -39,6 +39,9 @@
 
     <string name="media_player">Prehrávač médií</string>
     <string name="pinned_category">Pripnutá kategória</string>
+    <string name="pinned_category_mode">Režim pripnutej kategórie</string>
+    <string name="pinned_category_mode_folder">Priečinok</string>
+    <string name="pinned_category_mode_scroll">Posúvanie</string>
     <string name="lock_gesture">Dvojitým klepnutím zamknúť</string>
     <string name="legacy_lock_animation">Pôvodná animácia uzamknutia</string>
     <string name="imperial_units">Imperiálne jednotky</string>

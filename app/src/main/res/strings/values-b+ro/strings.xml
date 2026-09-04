@@ -39,6 +39,9 @@
 
     <string name="media_player">Player media</string>
     <string name="pinned_category">Categorie fixată</string>
+    <string name="pinned_category_mode">Mod categorie fixată</string>
+    <string name="pinned_category_mode_folder">Dosar</string>
+    <string name="pinned_category_mode_scroll">Derulare</string>
     <string name="lock_gesture">Apasă de două ori pentru a bloca</string>
     <string name="legacy_lock_animation">Animație de blocare clasică</string>
     <string name="imperial_units">Unități imperiale</string>

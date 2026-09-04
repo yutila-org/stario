@@ -52,6 +52,8 @@ class PinnedAppsAdapter extends RecyclerApplicationAdapter {
 
     private Category category;
     private int itemCount;
+    private int offset = 0;
+    private boolean allowGroup = true;
 
     public PinnedAppsAdapter(ThemedActivity activity,
                              SharedPreferences settings,
@@ -110,7 +112,7 @@ class PinnedAppsAdapter extends RecyclerApplicationAdapter {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void load() {
+    public void load() {
         if (category != null) {
             category.removeCategoryItemListener(categoryChangeListener);
         }
@@ -131,6 +133,21 @@ class PinnedAppsAdapter extends RecyclerApplicationAdapter {
         }
 
         UiUtils.post(this::notifyDataSetChanged);
+    }
+
+    public void setPage(int offset, int count, boolean allowGroup) {
+        this.offset = offset;
+        this.itemCount = count;
+        this.allowGroup = allowGroup;
+        notifyDataSetChanged();
+    }
+
+    public void setAllowGroup(boolean allowGroup) {
+        this.allowGroup = allowGroup;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 
     private void resetSharedPreferences() {
@@ -167,7 +184,7 @@ class PinnedAppsAdapter extends RecyclerApplicationAdapter {
                 PinnedAppsGroupDialog dialog = new PinnedAppsGroupDialog(activity, transitionListener);
                 dialog.setCategory(category);
 
-                dialog.show(index, group);
+                dialog.show(offset + index, group);
             };
         }
 
@@ -210,12 +227,12 @@ class PinnedAppsAdapter extends RecyclerApplicationAdapter {
             PinnedGroupViewHolder pinedViewHolder = (PinnedGroupViewHolder) viewHolder;
             pinedViewHolder.group.setLayoutManager(new GridLayoutManager(activity, 2));
             pinedViewHolder.group.setAdapter(new PinnedAppsGroupAdapter(activity,
-                    category, itemCount - 1));
+                    category, offset + itemCount - 1));
 
             if (pinedViewHolder.notification != null) {
                 int groupNotificationCount = 0;
                 if (category != null) {
-                    for (int i = itemCount - 1; i < category.getSize(); i++) {
+                    for (int i = offset + itemCount - 1; i < category.getSize(); i++) {
                         LauncherApplication app = category.get(i);
                         if (app != null) {
                             groupNotificationCount += app.getNotificationCount();
@@ -235,7 +252,7 @@ class PinnedAppsAdapter extends RecyclerApplicationAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == itemCount - 1 && category.getSize() - position - 1 > 0) {
+        if (allowGroup && position == itemCount - 1 && category != null && category.getSize() - (offset + position) - 1 > 0) {
             return GROUP_VIEW_TYPE;
         }
 
@@ -261,8 +278,9 @@ class PinnedAppsAdapter extends RecyclerApplicationAdapter {
     }
 
     protected LauncherApplication getApplication(int index) {
-        return category != null ?
-                category.get(index) : LauncherApplication.FALLBACK_APP;
+        int actualIndex = offset + index;
+        return (category != null && actualIndex >= 0 && actualIndex < category.getSize()) ?
+                category.get(actualIndex) : LauncherApplication.FALLBACK_APP;
     }
 
     @Override
@@ -295,7 +313,11 @@ class PinnedAppsAdapter extends RecyclerApplicationAdapter {
 
     @Override
     public int getTotalItemCount() {
-        return Math.min(category != null ? category.getSize() : 0, itemCount);
+        if (category == null) {
+            return 0;
+        }
+        int remaining = Math.max(0, category.getSize() - offset);
+        return Math.min(remaining, itemCount);
     }
 
     @Override

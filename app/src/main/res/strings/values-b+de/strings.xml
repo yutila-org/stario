@@ -39,6 +39,9 @@
 
     <string name="media_player">Mediaplayer</string>
     <string name="pinned_category">Angepinnte Kategorie</string>
+    <string name="pinned_category_mode">Angepinnte Kategorie-Modus</string>
+    <string name="pinned_category_mode_folder">Ordner</string>
+    <string name="pinned_category_mode_scroll">Scrollen</string>
     <string name="lock_gesture">Doppeltippen zum Sperren</string>
     <string name="legacy_lock_animation">Klassische Sperranimation</string>
     <string name="imperial_units">Imperiale Einheiten</string>

@@ -44,6 +44,9 @@
     <!-- Home pop-up -->
     <string name="media_player">Програвач медіа</string>
     <string name="pinned_category">Закріплена категорія</string>
+    <string name="pinned_category_mode">Режим закріпленої категорії</string>
+    <string name="pinned_category_mode_folder">Папка</string>
+    <string name="pinned_category_mode_scroll">Прокрутка</string>
     <string name="lock_gesture">Подвійний дотик для блокування</string>
     <string name="legacy_lock_animation">Застаріла анімація блокування</string>
     <string name="imperial_units">Імперські одиниці</string>

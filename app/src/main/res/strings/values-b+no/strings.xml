@@ -39,6 +39,9 @@
 
     <string name="media_player">Mediespiller</string>
     <string name="pinned_category">Festet kategori</string>
+    <string name="pinned_category_mode">Festet kategori-modus</string>
+    <string name="pinned_category_mode_folder">Mappe</string>
+    <string name="pinned_category_mode_scroll">Rull</string>
     <string name="lock_gesture">Dobbelttrykk for å låse</string>
     <string name="legacy_lock_animation">Klassisk låseanimasjon</string>
     <string name="imperial_units">Imperiell enheter</string>

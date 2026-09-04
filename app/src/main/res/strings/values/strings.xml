@@ -65,6 +65,9 @@
     <!-- Home pop-up -->
     <string name="media_player">Media player</string>
     <string name="pinned_category">Pinned category</string>
+    <string name="pinned_category_mode">Pinned category mode</string>
+    <string name="pinned_category_mode_folder">Folder</string>
+    <string name="pinned_category_mode_scroll">Scroll</string>
     <string name="lock_gesture">Double tap to lock</string>
     <string name="legacy_lock_animation">Legacy lock animation</string>
     <string name="imperial_units">Imperial units</string>

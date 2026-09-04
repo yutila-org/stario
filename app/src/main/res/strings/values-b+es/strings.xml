@@ -39,6 +39,9 @@
 
     <string name="media_player">Reproductor multimedia</string>
     <string name="pinned_category">Categoría fijada</string>
+    <string name="pinned_category_mode">Modo de categoría fijada</string>
+    <string name="pinned_category_mode_folder">Carpeta</string>
+    <string name="pinned_category_mode_scroll">Desplazamiento</string>
     <string name="lock_gesture">Doble toque para bloquear</string>
     <string name="legacy_lock_animation">Animación de bloqueo clásica</string>
     <string name="imperial_units">Unidades imperiales</string>

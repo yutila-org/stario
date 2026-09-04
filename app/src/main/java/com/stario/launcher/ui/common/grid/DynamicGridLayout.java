@@ -1359,11 +1359,11 @@ public class DynamicGridLayout extends ViewGroup {
         }
     }
 
-    private static class LayoutParams extends ViewGroup.LayoutParams {
-        private int col;
-        private int row;
-        private int colSpan;
-        private int rowSpan;
+    public static class LayoutParams extends ViewGroup.LayoutParams {
+        public int col;
+        public int row;
+        public int colSpan;
+        public int rowSpan;
 
         public LayoutParams(int col, int row, int colSpan, int rowSpan) {
             super(MATCH_PARENT, MATCH_PARENT);

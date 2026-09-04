@@ -22,11 +22,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,7 +49,9 @@ import com.stario.launcher.activities.launcher.widgets.pins.PinnedCategory;
 import com.stario.launcher.activities.settings.dialogs.location.LocationDialog;
 import com.stario.launcher.activities.settings.dialogs.pin.PinnedCategoryDialog;
 import com.stario.launcher.apps.CategoryManager;
+import com.stario.launcher.exceptions.NoExistingInstanceException;
 import com.stario.launcher.preferences.Entry;
+import com.stario.launcher.preferences.Vibrations;
 import com.stario.launcher.themes.ThemedActivity;
 import com.stario.launcher.ui.common.StylizedClockView;
 import com.stario.launcher.ui.dialogs.ActionDialog;
@@ -70,6 +74,13 @@ public class HomeScreenDialog extends ActionDialog {
     private MaterialSwitch pinnedCategorySwitch;
     private TextView pinnedCategoryName;
     private MaterialSwitch mediaSwitch;
+    private View pinnedCategoryModeSection;
+    private View modeFolderButton;
+    private ImageView modeFolderIcon;
+    private TextView modeFolderText;
+    private View modeScrollButton;
+    private ImageView modeScrollIcon;
+    private TextView modeScrollText;
 
     public HomeScreenDialog(@NonNull ThemedActivity activity) {
         super(activity);
@@ -139,6 +150,7 @@ public class HomeScreenDialog extends ActionDialog {
                 pinsPrefs.edit()
                         .putBoolean(PinnedCategory.PINNED_CATEGORY_VISIBLE, isChecked)
                         .apply();
+                updateModeSectionEnabled(isChecked);
             }
         });
 
@@ -152,6 +164,7 @@ public class HomeScreenDialog extends ActionDialog {
                     dialog = new PinnedCategoryDialog(activity, pinsPrefs,
                             (isChecked) -> {
                                 pinnedCategorySwitch.setChecked(isChecked);
+                                updateModeSectionEnabled(isChecked && isPinnedCategoryValid());
 
                                 return isPinnedCategoryValid() && isChecked;
                             });
@@ -168,6 +181,68 @@ public class HomeScreenDialog extends ActionDialog {
                 }
             }
         });
+
+        // Pinned Category Mode
+        pinnedCategoryModeSection = root.findViewById(R.id.pinned_category_mode_section);
+        modeFolderButton = root.findViewById(R.id.mode_folder_button);
+        modeFolderIcon = root.findViewById(R.id.mode_folder_icon);
+        modeFolderText = root.findViewById(R.id.mode_folder_text);
+        modeScrollButton = root.findViewById(R.id.mode_scroll_button);
+        modeScrollIcon = root.findViewById(R.id.mode_scroll_icon);
+        modeScrollText = root.findViewById(R.id.mode_scroll_text);
+
+        int currentMode = pinsPrefs.getInt(PinnedCategory.PINNED_CATEGORY_MODE, PinnedCategory.MODE_FOLDER);
+        updateModeSelection(currentMode);
+        updateModeSectionEnabled(pinnedCategorySwitch.isChecked());
+
+        modeFolderButton.setOnClickListener(v -> {
+            pinsPrefs.edit().putInt(PinnedCategory.PINNED_CATEGORY_MODE, PinnedCategory.MODE_FOLDER).apply();
+            updateModeSelection(PinnedCategory.MODE_FOLDER);
+            try {
+                Vibrations.getInstance().vibrate();
+            } catch (NoExistingInstanceException ignored) {
+            }
+        });
+
+        modeScrollButton.setOnClickListener(v -> {
+            pinsPrefs.edit().putInt(PinnedCategory.PINNED_CATEGORY_MODE, PinnedCategory.MODE_SCROLL).apply();
+            updateModeSelection(PinnedCategory.MODE_SCROLL);
+            try {
+                Vibrations.getInstance().vibrate();
+            } catch (NoExistingInstanceException ignored) {
+            }
+        });
+    }
+
+    private void updateModeSelection(int mode) {
+        int colorOnSurface = activity.getAttributeData(com.google.android.material.R.attr.colorOnSurface);
+        int colorSecondary = activity.getAttributeData(com.google.android.material.R.attr.colorSecondary);
+
+        if (mode == PinnedCategory.MODE_SCROLL) {
+            modeScrollButton.setBackgroundResource(R.drawable.button_toggle_selected);
+            modeFolderButton.setBackgroundResource(R.drawable.button_toggle_unselected);
+
+            modeScrollIcon.setImageTintList(ColorStateList.valueOf(colorOnSurface));
+            modeScrollText.setTextColor(colorOnSurface);
+
+            modeFolderIcon.setImageTintList(ColorStateList.valueOf(colorSecondary));
+            modeFolderText.setTextColor(colorSecondary);
+        } else {
+            modeFolderButton.setBackgroundResource(R.drawable.button_toggle_selected);
+            modeScrollButton.setBackgroundResource(R.drawable.button_toggle_unselected);
+
+            modeFolderIcon.setImageTintList(ColorStateList.valueOf(colorOnSurface));
+            modeFolderText.setTextColor(colorOnSurface);
+
+            modeScrollIcon.setImageTintList(ColorStateList.valueOf(colorSecondary));
+            modeScrollText.setTextColor(colorSecondary);
+        }
+    }
+
+    private void updateModeSectionEnabled(boolean enabled) {
+        pinnedCategoryModeSection.setAlpha(enabled ? 1.0f : 0.38f);
+        modeFolderButton.setEnabled(enabled);
+        modeScrollButton.setEnabled(enabled);
     }
 
     private void initClockSection() {

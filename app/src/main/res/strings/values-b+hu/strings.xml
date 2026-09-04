@@ -39,6 +39,9 @@
 
     <string name="media_player">Médialejátszó</string>
     <string name="pinned_category">Rögzített kategória</string>
+    <string name="pinned_category_mode">Rögzített kategória mód</string>
+    <string name="pinned_category_mode_folder">Mappa</string>
+    <string name="pinned_category_mode_scroll">Görgetés</string>
     <string name="lock_gesture">Dupla koppintás a lezáráshoz</string>
     <string name="legacy_lock_animation">Hagyományos zárási animáció</string>
     <string name="imperial_units">Imperiális mértékegységek</string>
