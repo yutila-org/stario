@@ -27,8 +27,8 @@ android {
         applicationId 'com.stario.launcher'
         minSdkVersion 29
         targetSdkVersion 36
-        versionCode 98
-        versionName '3.0'
+        versionCode 99
+        versionName '3.1'
     }
 
     signingConfigs {
@@ -50,6 +50,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), "proguard-rules.txt"
             if (hasSigningConfig) {
                 signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
             }
         }
         debug {

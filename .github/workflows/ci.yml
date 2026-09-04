@@ -95,12 +95,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install Gitleaks
+        run: |
+          GITLEAKS_VERSION="8.24.0"
+          curl -sSLO "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          tar -xzf "gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          sudo install gitleaks /usr/local/bin/
+
       - name: Execute Gitleaks
-        uses: gitleaks/gitleaks-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_REPORT_FORMAT: json
-          GITLEAKS_REPORT_FILE: gitleaks-results.json
+        run: gitleaks detect --verbose --redact
 
   sbom:
     name: Software Bill of Materials

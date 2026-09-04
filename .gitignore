@@ -7,3 +7,4 @@ TODO.md
 local.properties
 .env
 .env.*
+*.apk
