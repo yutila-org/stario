@@ -3,9 +3,14 @@
 -keep class org.chickenhook.restrictionbypass.** { *; }
 -keep class com.ctc.wstx.stax.** { *; }
 -keep class com.stario.launcher.sheet.SheetDialogFragment { *; }
+-keep class * extends com.stario.launcher.sheet.SheetDialogFragment {
+    public <init>(...);
+    *;
+}
 -keep class com.stario.launcher.sheet.drawer.dialog.ApplicationsDialog { *; }
 -keep class com.stario.launcher.sheet.widgets.dialog.WidgetsDialog { *; }
 -keep class com.stario.launcher.sheet.briefing.dialog.BriefingDialog { *; }
+-keep class com.stario.launcher.sheet.notes.dialog.NotesDialog { *; }
 
 -keepattributes Signature
 

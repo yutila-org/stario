@@ -419,7 +419,7 @@ public class SheetsFocusController extends ConstraintLayout {
             } catch (Exception exception) {
                 throw new RuntimeException(clazz.getName() +
                         "(" + SheetType.class.getName() + ")" +
-                        "has to be visible to public scope.");
+                        "has to be visible to public scope.", exception);
             }
         }
     }

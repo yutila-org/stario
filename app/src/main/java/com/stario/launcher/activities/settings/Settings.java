@@ -483,7 +483,7 @@ public class Settings extends ThemedActivity {
 
     private void initFooterLinks() {
         //noinspection SetTextI18n
-        ((TextView) findViewById(R.id.version)).setText(BuildConfig.VERSION_NAME);
+        ((TextView) findViewById(R.id.version)).setText(BuildConfig.DISPLAY_VERSION);
 
         findViewById(R.id.about).setOnClickListener(view -> {
             Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
