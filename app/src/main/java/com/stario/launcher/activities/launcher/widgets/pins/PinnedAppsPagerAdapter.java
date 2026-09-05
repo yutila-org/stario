@@ -41,7 +41,6 @@ public class PinnedAppsPagerAdapter extends RecyclerView.Adapter<PinnedAppsPager
     private final SharedPreferences preferences;
     private final PinnedAppsAdapter.OnPopUpShowListener popUpShowListener;
     private final PinnedAppsGroupDialog.TransitionListener transitionListener;
-    private final RecyclerView.RecycledViewPool sharedPool;
 
     private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
     private final CategoryManager.CategoryListener categoryManagerChangeListener;
@@ -65,7 +64,6 @@ public class PinnedAppsPagerAdapter extends RecyclerView.Adapter<PinnedAppsPager
         this.preferences = preferences;
         this.popUpShowListener = popUpShowListener;
         this.transitionListener = transitionListener;
-        this.sharedPool = new RecyclerView.RecycledViewPool();
 
         this.sharedPreferenceChangeListener = (sharedPreferences, key) -> {
             if (PinnedCategory.PINNED_CATEGORY.equals(key)) {
@@ -187,7 +185,6 @@ public class PinnedAppsPagerAdapter extends RecyclerView.Adapter<PinnedAppsPager
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
         pageRecycler.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        pageRecycler.setRecycledViewPool(sharedPool);
         pageRecycler.setNestedScrollingEnabled(false);
 
         return new PageViewHolder(pageRecycler, activity, preferences, popUpShowListener, transitionListener);

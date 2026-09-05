@@ -354,7 +354,7 @@ public abstract class RecyclerApplicationAdapter
                     return false;
                 }
 
-                LauncherApplication application = getApplication(index);
+                LauncherApplication application = getBoundApplication(index);
 
                 if (application != LauncherApplication.FALLBACK_APP) {
                     showPopup(application);
@@ -375,12 +375,20 @@ public abstract class RecyclerApplicationAdapter
                     return;
                 }
 
-                LauncherApplication application = getApplication(index);
+                LauncherApplication application = getBoundApplication(index);
 
                 if (application != LauncherApplication.FALLBACK_APP) {
                     application.launch(activity);
                 }
             };
+        }
+
+        private LauncherApplication getBoundApplication(int index) {
+            if (getBindingAdapter() instanceof RecyclerApplicationAdapter) {
+                return ((RecyclerApplicationAdapter) getBindingAdapter()).getApplication(index);
+            }
+
+            return getApplication(index);
         }
 
         public void setIcon(Drawable drawable) {
